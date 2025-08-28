@@ -16,3 +16,9 @@
   - Socket Test : Socket Io Test
   - 화면 구성 : 실시간 Chart 구성 + 알림 구현
   - Data Binding : 구현된 화면과 서버를 붙이기
+
+---
+
+### 사용 라이브러리
+
+- Finnhub(주식 관련 데이터)
