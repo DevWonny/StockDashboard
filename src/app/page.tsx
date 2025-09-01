@@ -22,7 +22,9 @@ export default function Home() {
 
   return (
     <div className="test-page">
-      <p>123</p>
+      {data.map((item: any, index: any) => (
+        <p key={`test-index-${index}`}>{item.price}</p>
+      ))}
     </div>
   );
 }
