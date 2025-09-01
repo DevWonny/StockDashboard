@@ -1,19 +1,23 @@
 "use client";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-import { symbolList } from "@/service/Symbols";
 import axios from "axios";
 
 export default function Home() {
   const [data, setData] = useState<any>([]);
-  const test = async () => {
-    console.log("test start");
-    const res = await axios.get("/api/test");
-    console.log("🚀 ~ test ~ res:", res);
-  };
   useEffect(() => {
-    // symbolList();
+    const test = async () => {
+      try {
+        const res = await axios.get("/api/test");
+        console.log("🚀 ~ test ~ res:", res);
+      } catch (err) {
+        console.log("🚀 ~ test ~ err:", err);
+        return;
+      }
+    };
+
     test();
+    // symbolList();
     // const socket = io("http://localhost:4000");
     // socket.on("stockUpdate", (data) =>
     //   setData((prev: any) => [...data, ...prev].slice(0, 50))

@@ -1,20 +1,19 @@
-import finnhub from 'finnhub';
-export const symbolList = async () => {
-  const key = process.env.FINNHUB_TOKEN;
 
+import axios from 'axios'
+export async function symbolList() {
+  const key = process.env.FINNHUB_TOKEN;
   if (!key) {
     throw new Error('Service Symbol List Error!');
   }
 
-  const finnhubClient = finnhub.ApiClient.instance.authentications['apiKey'];
-  finnhubClient.apiKey = key;
+  try {
+    console.log(11)
+    const res = await axios.get(`https://finnhub.io/api/v1/stock/symbol?exchange=US&token=${key}`)
+    // const res = await axios.get(`https://finnhub.io/api/v1/search?q=apple&exchange=US&token=${key}`)
+    return res.data;
+  } catch (err) {
+    console.log("🚀 ~ symbolList ~ err:", err);
+    return
+  }
 
-  const client = new finnhubClient.DefaultApi();
-
-  client.stockSymbol('US', (error: any, data: any, responses: any) => {
-    console.log("🚀 ~ symbolList ~ error:", error)
-    console.log("🚀 ~ symbolList ~ responses:", responses)
-    console.log("🚀 ~ symbolList ~ data:", data)
-    return data;
-  })
 };
