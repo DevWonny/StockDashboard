@@ -38,11 +38,7 @@ export default function Home() {
 
   return (
     <div className="main-wrap">
-      <Swiper
-        className="header-container w-full"
-        slidesPerView={8}
-        spaceBetween={20}
-      >
+      <Swiper className="header-container w-full" slidesPerView={8}>
         {Array.from({ length: 10 }, (_, i) => (
           <SwiperSlide key={`swiper-slide-index-${i}`}>
             <HeaderItem />

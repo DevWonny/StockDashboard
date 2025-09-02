@@ -1,7 +1,9 @@
 "use client";
+// style
+import "@/styles/components/HeaderItem.scss";
 export default function HeaderItem() {
   return (
-    <div className="header-item-container">
+    <div className="header-item-container py-[5px] px-[20px]">
       <div className="top-container flex justify-between text-sm">
         <h1>Name</h1>
         <h2>Last Price</h2>
