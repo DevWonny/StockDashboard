@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import HeaderItem from "@/components/HeaderItem";
 // style
 import "swiper/css";
+import "@/styles/app/main.scss";
 
 export default function Home() {
   const [data, setData] = useState<any>([]);
@@ -37,7 +38,11 @@ export default function Home() {
 
   return (
     <div className="main-wrap">
-      <Swiper className="header-container">
+      <Swiper
+        className="header-container w-full"
+        slidesPerView={8}
+        spaceBetween={20}
+      >
         {Array.from({ length: 10 }, (_, i) => (
           <SwiperSlide key={`swiper-slide-index-${i}`}>
             <HeaderItem />
