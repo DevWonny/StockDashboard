@@ -2,8 +2,11 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import axios from "axios";
+import { Swiper, SwiperSlide } from "swiper/react";
 // component
 import HeaderItem from "@/components/HeaderItem";
+// style
+import "swiper/css";
 
 export default function Home() {
   const [data, setData] = useState<any>([]);
@@ -34,10 +37,13 @@ export default function Home() {
 
   return (
     <div className="main-wrap">
-      <div className="header-container">
-        {/* Swiper 사용 예정*/}
-        <HeaderItem />
-      </div>
+      <Swiper className="header-container">
+        {Array.from({ length: 10 }, (_, i) => (
+          <SwiperSlide key={`swiper-slide-index-${i}`}>
+            <HeaderItem />
+          </SwiperSlide>
+        ))}
+      </Swiper>
       {data.map((item: any, index: any) => (
         <p key={`test-index-${index}`}>{item.price}</p>
       ))}

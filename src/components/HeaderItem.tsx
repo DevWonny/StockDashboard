@@ -2,7 +2,7 @@
 
 export default function HeaderItem() {
   return (
-    <div className="header-item-container">
+    <div className="header-item-container w-24">
       <p>Header Item</p>
     </div>
   );
