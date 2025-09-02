@@ -7,9 +7,7 @@ export async function symbolList() {
   }
 
   try {
-    console.log(11)
     const res = await axios.get(`https://finnhub.io/api/v1/stock/symbol?exchange=US&token=${key}`)
-    // const res = await axios.get(`https://finnhub.io/api/v1/search?q=apple&exchange=US&token=${key}`)
     return res.data;
   } catch (err) {
     console.log("🚀 ~ symbolList ~ err:", err);

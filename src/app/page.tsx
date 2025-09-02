@@ -2,21 +2,22 @@
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
 import axios from "axios";
+// component
+import HeaderItem from "@/components/HeaderItem";
 
 export default function Home() {
   const [data, setData] = useState<any>([]);
   useEffect(() => {
-    const test = async () => {
+    const symbols = async () => {
       try {
-        const res = await axios.get("/api/test");
-        console.log("🚀 ~ test ~ res:", res);
+        const res = await axios.get("/api/symbols");
+        console.log("🚀 ~ symbols ~ res:", res);
       } catch (err) {
-        console.log("🚀 ~ test ~ err:", err);
+        console.log("🚀 ~ symbols ~ err:", err);
         return;
       }
     };
 
-    test();
     // symbolList();
     // const socket = io("http://localhost:4000");
     // socket.on("stockUpdate", (data) =>
@@ -32,7 +33,11 @@ export default function Home() {
   // }, [data]);
 
   return (
-    <div className="test-page">
+    <div className="main-wrap">
+      <div className="header-container">
+        {/* Swiper 사용 예정*/}
+        <HeaderItem />
+      </div>
       {data.map((item: any, index: any) => (
         <p key={`test-index-${index}`}>{item.price}</p>
       ))}
