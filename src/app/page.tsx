@@ -48,7 +48,7 @@ export default function Home() {
       </Swiper>
 
       <div className="chart-wrap  flex justify-between">
-        <div className="chart-container">
+        <div className="chart-container w-full">
           <Chart />
         </div>
 
