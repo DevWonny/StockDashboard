@@ -5,6 +5,7 @@ import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 // component
 import HeaderItem from "@/components/HeaderItem";
+import Chart from "@/components/Chart";
 // style
 import "swiper/css";
 import "@/styles/app/main.scss";
@@ -47,7 +48,9 @@ export default function Home() {
       </Swiper>
 
       <div className="chart-wrap  flex justify-between">
-        <div className="chart-container">Chart</div>
+        <div className="chart-container">
+          <Chart />
+        </div>
 
         <div className="stock-list-container">Stock List</div>
       </div>
