@@ -2,7 +2,18 @@
 import { AreaSeries, createChart, ColorType } from "lightweight-charts";
 import { useRef, useEffect } from "react";
 
-export default function Chart() {
+import { LineData } from "lightweight-charts";
+
+interface ChartData {
+  time: string;
+  value: number;
+}
+
+interface ChartProps {
+  data: ChartData[];
+}
+
+export default function Chart({ data }: ChartProps) {
   const chartRef = useRef<HTMLDivElement | null>(null);
 
   const initialData = [
@@ -51,8 +62,7 @@ export default function Chart() {
       topColor: areaTopColor,
       bottomColor: areaBottomColor,
     });
-
-    newSeries.setData(initialData);
+    newSeries.setData(data);
 
     window.addEventListener("resize", handleResize);
 
@@ -60,6 +70,6 @@ export default function Chart() {
       window.removeEventListener("resize", handleResize);
       chart.remove();
     };
-  }, []);
+  }, [data]);
   return <div ref={chartRef} className="chart"></div>;
 }
