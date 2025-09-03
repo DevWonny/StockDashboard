@@ -45,9 +45,12 @@ export default function Home() {
           </SwiperSlide>
         ))}
       </Swiper>
-      {data.map((item: any, index: any) => (
-        <p key={`test-index-${index}`}>{item.price}</p>
-      ))}
+
+      <div className="chart-wrap  flex justify-between">
+        <div className="chart-container">Chart</div>
+
+        <div className="stock-list-container">Stock List</div>
+      </div>
     </div>
   );
 }
