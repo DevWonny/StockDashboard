@@ -7,4 +7,15 @@ div.main-wrap {
       }
     }
   }
+
+  div.chart-wrap {
+    div.chart-container {
+      width: 1040px;
+    }
+    div.stock-list-container {
+      height: 300px;
+      width: 400px;
+      overflow-y: auto;
+    }
+  }
 }

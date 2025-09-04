@@ -70,12 +70,12 @@ export default function Home() {
       </Swiper>
 
       <div className="chart-wrap  flex justify-between h-screen">
-        <div className="chart-container w-full ">
+        <div className="chart-container ">
           <Chart data={initialData} />
         </div>
 
         <div className="stock-list-container flex flex-col">
-          {Array.from({ length: 10 }, (_, i) => (
+          {Array.from({ length: 100 }, (_, i) => (
             <StockItem key={`stock-item-index-${i}`} />
           ))}
         </div>
