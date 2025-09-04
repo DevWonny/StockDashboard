@@ -16,19 +16,6 @@ interface ChartProps {
 export default function Chart({ data }: ChartProps) {
   const chartRef = useRef<HTMLDivElement | null>(null);
 
-  const initialData = [
-    { time: "2025-08-25", value: 32.51 },
-    { time: "2025-08-26", value: 31.11 },
-    { time: "2025-08-27", value: 27.02 },
-    { time: "2025-08-28", value: 27.32 },
-    { time: "2025-08-29", value: 25.17 },
-    { time: "2025-08-30", value: 28.89 },
-    { time: "2025-08-31", value: 25.46 },
-    { time: "2025-09-01", value: 23.92 },
-    { time: "2025-09-02", value: 22.68 },
-    { time: "2025-09-03", value: 22.67 },
-  ];
-
   useEffect(() => {
     const backgroundColor = "white";
     const lineColor = "#2962ff";
@@ -48,13 +35,16 @@ export default function Chart({ data }: ChartProps) {
         textColor,
       },
       width: chartRef.current.clientWidth,
-      height: 300,
+      height: chartRef.current.clientHeight - 100,
     });
 
     chart.timeScale().fitContent();
 
     const handleResize = () => {
-      chart.applyOptions({ width: chartRef.current?.clientWidth });
+      chart.applyOptions({
+        width: chartRef.current?.clientWidth,
+        height: chartRef.current?.clientHeight,
+      });
     };
 
     const newSeries = chart.addSeries(AreaSeries, {
@@ -71,5 +61,5 @@ export default function Chart({ data }: ChartProps) {
       chart.remove();
     };
   }, [data]);
-  return <div ref={chartRef} className="chart"></div>;
+  return <div ref={chartRef} className="chart h-full"></div>;
 }
