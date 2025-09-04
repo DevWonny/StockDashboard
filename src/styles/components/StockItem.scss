@@ -1,0 +1,11 @@
+div.stock-item-container {
+  &:not(:last-child) {
+    border-bottom: 1px solid #444;
+  }
+  p {
+    padding: 5px 10px;
+    &:not(:last-child) {
+      border-right: 1px solid #444;
+    }
+  }
+}
