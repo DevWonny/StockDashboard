@@ -51,11 +51,19 @@ div.stock-detail-container {
     div.performance-item {
       border-radius: 8px;
       border: 1px solid #538fe8;
-      p {
-        font-size: 14px;
-        &.title {
+      padding: 5px;
+      div.title-container {
+        gap: 5px;
+        p.title {
           font-size: 18px;
         }
+        p.period {
+          color: #a1a1a1;
+        }
+      }
+
+      p {
+        font-size: 14px;
       }
     }
   }
