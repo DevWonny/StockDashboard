@@ -1,4 +1,4 @@
-
+// * Trades(Socket) , Stock Symbols, Company Profile 2, Basic Financial, EPS Surprises, Quote
 import axios from 'axios'
 export async function symbolList() {
   const key = process.env.FINNHUB_TOKEN;
