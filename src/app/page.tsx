@@ -7,6 +7,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import HeaderItem from "@/components/HeaderItem";
 import Chart from "@/components/Chart";
 import StockItem from "@/components/StockItem";
+import StockDetail from "@/components/StockDetail";
 // style
 import "swiper/css";
 import "@/styles/app/main.scss";
@@ -74,10 +75,14 @@ export default function Home() {
           <Chart data={initialData} />
         </div>
 
-        <div className="stock-list-container flex flex-col">
-          {Array.from({ length: 100 }, (_, i) => (
-            <StockItem key={`stock-item-index-${i}`} />
-          ))}
+        <div className="stock-container flex flex-col">
+          <div className="stock-list-container flex flex-col">
+            {Array.from({ length: 100 }, (_, i) => (
+              <StockItem key={`stock-item-index-${i}`} />
+            ))}
+          </div>
+
+          <StockDetail />
         </div>
       </div>
     </div>
