@@ -1,4 +1,6 @@
 "use client";
+// style
+import "@/styles/components/StockDetail.scss";
 
 export default function StockDetail() {
   // ! Company Profile 2
@@ -8,15 +10,85 @@ export default function StockDetail() {
   // * 10일간 평균 거래량
   // * 52주 최고가 + 최저가
   // ! EPS Surprises
-  // * 최근 분기 실적
+  // * 최근 4분기 실적
   // ! Quote
   // * 금일 최고가 + 최저가
   return (
-    <div className="stock-detail-container flex flex-col">
-      <div className="company-info"></div>
-      <div className="finance-info"></div>
-      <div className="recent-performance-info"></div>
-      <div className="quote-info"></div>
+    <div className="stock-detail-container flex flex-col px-[10px] py-[20px]">
+      <div className="company-info flex flex-col">
+        <div className="name-container flex flex-row items-center">
+          <div className="logo"></div>
+          <h1 className="text-lg font-bold">Name</h1>
+          <h2 className="text-xs ">Nation</h2>
+        </div>
+
+        <div className="market-container flex flex-row items-center">
+          <h1 className="text-2xl">Capitalization</h1>
+          <p className="text-sm">Exchange</p>
+        </div>
+      </div>
+
+      <div className="finance-info flex flex-row justify-between">
+        {/* 10일간 평균 거래량 */}
+        <div className="average-volume flex flex-col">
+          <p>10일 평균 거래량</p>
+          <span>10.423</span>
+        </div>
+        {/* 52주 최고가 */}
+        <div className="week-high flex flex-col">
+          <p>52주 최고가</p>
+          <span>23.3</span>
+        </div>
+        {/* 52주 최저가 */}
+        <div className="week-low flex flex-col">
+          <p>52주 최저가</p>
+          <span>19.5</span>
+        </div>
+      </div>
+
+      <div className="performance-info flex flex-col">
+        <div className="performance-item flex flex-col">
+          <p className="title">25년 2분기 실적</p>
+          <p className="period">보고 기간 : 2025-06-30</p>
+          <p className="estimate">예상 수입 : 1.9744</p>
+          <p className="actual">실제 수입 : 1.88</p>
+          {/* 음수일 경우 붉은색으로, 양수일 경우 녹색으로 */}
+          <p className="surprise">Surprise : -0.0944</p>
+          <p className="surprise-percentage">Surprise Percentage : -4.7812</p>
+        </div>
+
+        <div className="performance-item flex flex-col">
+          <p className="title">25년 1분기 실적</p>
+          <p className="period">보고 기간 : 2025-03-31</p>
+          <p className="estimate">예상 수입 : 1.9744</p>
+          <p className="actual">실제 수입 : 1.88</p>
+          {/* 음수일 경우 붉은색으로, 양수일 경우 녹색으로 */}
+          <p className="surprise">Surprise : -0.0944</p>
+          <p className="surprise-percentage">Surprise Percentage : -4.7812</p>
+        </div>
+
+        <div className="performance-item flex flex-col">
+          <p className="title">24년 4분기 실적</p>
+          <p className="period">보고 기간 : 2024-12-31</p>
+          <p className="estimate">예상 수입 : 1.9744</p>
+          <p className="actual">실제 수입 : 1.88</p>
+          {/* 음수일 경우 붉은색으로, 양수일 경우 녹색으로 */}
+          <p className="surprise">Surprise : -0.0944</p>
+          <p className="surprise-percentage">Surprise Percentage : -4.7812</p>
+        </div>
+
+        <div className="performance-item flex flex-col">
+          <p className="title">24년 3분기 실적</p>
+          <p className="period">보고 기간 : 2024-09-31</p>
+          <p className="estimate">예상 수입 : 1.9744</p>
+          <p className="actual">실제 수입 : 1.88</p>
+          {/* 음수일 경우 붉은색으로, 양수일 경우 녹색으로 */}
+          <p className="surprise">Surprise : -0.0944</p>
+          <p className="surprise-percentage">Surprise Percentage : -4.7812</p>
+        </div>
+      </div>
+
+      <div className="quote-info">Quote</div>
     </div>
   );
 }
