@@ -29,19 +29,25 @@ div.stock-detail-container {
 
   div.finance-info {
     div {
-      border-radius: 8px;
-      // background-color: #679beb;
-      border: 1px solid #679beb;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px;
-      p {
-        font-size: 16px;
-      }
+      &.average-volume,
+      &.week-high,
+      &.week-low,
+      &.today-high,
+      &.today-low {
+        border-radius: 8px;
+        // background-color: #679beb;
+        border: 1px solid #679beb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 15px;
+        p {
+          font-size: 16px;
+        }
 
-      span {
-        font-size: 14px;
+        span {
+          font-size: 14px;
+        }
       }
     }
   }

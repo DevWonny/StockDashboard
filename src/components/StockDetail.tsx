@@ -28,21 +28,30 @@ export default function StockDetail() {
         </div>
       </div>
 
-      <div className="finance-info flex flex-row justify-between">
-        {/* 10일간 평균 거래량 */}
-        <div className="average-volume flex flex-col">
-          <p>10일 평균 거래량</p>
-          <span>10.423</span>
+      <div className="finance-info flex flex-col ">
+        <div className="top-finance flex flew-row justify-between">
+          {/* 10일간 평균 거래량 */}
+          <div className="average-volume flex flex-col">
+            <p>10일 평균 거래량</p>
+            <span>10.423</span>
+          </div>
+          {/* 52주 최고가 */}
+          <div className="week-high flex flex-col">
+            <p>52주 최고가</p>
+            <span>23.3</span>
+          </div>
+          {/* 52주 최저가 */}
+          <div className="week-low flex flex-col">
+            <p>52주 최저가</p>
+            <span>19.5</span>
+          </div>
         </div>
-        {/* 52주 최고가 */}
-        <div className="week-high flex flex-col">
-          <p>52주 최고가</p>
-          <span>23.3</span>
-        </div>
-        {/* 52주 최저가 */}
-        <div className="week-low flex flex-col">
-          <p>52주 최저가</p>
-          <span>19.5</span>
+
+        <div className="bot-finance flex flex-row">
+          {/* 금일 최고가 */}
+          <div className="today-high"></div>
+          {/* 금일 최저가 */}
+          <div className="today-low"></div>
         </div>
       </div>
 
@@ -99,8 +108,6 @@ export default function StockDetail() {
           <p className="surprise-percentage">Surprise Percentage : -4.7812%</p>
         </div>
       </div>
-
-      <div className="quote-info">Quote</div>
     </div>
   );
 }
