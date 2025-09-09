@@ -28,6 +28,7 @@ div.stock-detail-container {
   }
 
   div.finance-info {
+    gap: 10px;
     div {
       &.average-volume,
       &.week-high,
@@ -48,6 +49,11 @@ div.stock-detail-container {
         span {
           font-size: 14px;
         }
+      }
+
+      &.today-high,
+      &.today-low {
+        width: 45%;
       }
     }
   }

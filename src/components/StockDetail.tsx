@@ -47,11 +47,17 @@ export default function StockDetail() {
           </div>
         </div>
 
-        <div className="bot-finance flex flex-row">
+        <div className="bot-finance flex flex-row justify-around">
           {/* 금일 최고가 */}
-          <div className="today-high"></div>
+          <div className="today-high flex flex-col">
+            <p>금일 최고가</p>
+            <span>234.1</span>
+          </div>
           {/* 금일 최저가 */}
-          <div className="today-low"></div>
+          <div className="today-low flex flex-col">
+            <p>금일 최저가</p>
+            <span>103.4</span>
+          </div>
         </div>
       </div>
 
