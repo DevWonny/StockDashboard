@@ -82,9 +82,7 @@ export default function Home() {
         <div className="stock-container flex flex-col">
           {symbolList.length > 0 ? (
             <div className="stock-list-container flex flex-col">
-              {symbolList.map((item, index) => (
-                <StockItem key={`stock-item-key=${index}`} data={item} />
-              ))}
+              <StockItem data={symbolList} />
             </div>
           ) : (
             <div>Loading...</div>
