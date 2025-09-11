@@ -1,5 +1,6 @@
 import axios from 'axios'
-
+// type
+import { Symbol } from '@/types/symbols';
 export const TOP50_TICKERS = [
   'AAPL', 'MSFT', 'GOOGL', 'GOOG', 'AMZN', 'TSLA', 'META', 'NVDA', 'BRK.B',
   'JPM', 'JNJ', 'V', 'PG', 'XOM', 'UNH', 'MA', 'HD', 'CVX', 'AVGO', 'PFE', 'MRK', 'ABBV', 'KO',
@@ -15,9 +16,10 @@ export async function symbolList() {
   try {
     const res = await axios.get(`https://finnhub.io/api/v1/stock/symbol?exchange=US&token=${key}`)
 
-    const filterData = res.data.filter((item: any) => TOP50_TICKERS.includes(item.symbol))
+    const filterData = res.data.filter((item: Symbol) => TOP50_TICKERS.includes(item.symbol))
 
-    return filterData;
+
+    return filterData.sort((a: Symbol, b: Symbol) => a.description.localeCompare(b.description));
   } catch (err) {
     console.log("🚀 ~ symbolList ~ err:", err);
     return

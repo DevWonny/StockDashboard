@@ -21,16 +21,14 @@ interface StockProps {
 export default function StockItem({ data }: StockProps) {
   // ! 이름만 사용할수 있음... 데이터 내용 부실 -> 드롭다운 형태로 변경
   const [dataDescription, setDataDescription] = useState<string>("");
-  console.log("🚀 ~ StockItem ~ data:", data);
 
   const onItemClick = (item: Symbol) => {
-    console.log("123", item);
     setDataDescription(item.description);
   };
 
   useEffect(() => {
     if (data.length > 0) {
-      setDataDescription(data[1].description);
+      setDataDescription(data[0].description);
     } else {
       setDataDescription("");
     }

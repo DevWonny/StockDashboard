@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // component
 import HeaderItem from "@/components/HeaderItem";
 import Chart from "@/components/Chart";
-import StockItem from "@/components/StockItem";
+import StockDropdown from "@/components/StockDropdown";
 import StockDetail from "@/components/StockDetail";
 // type
 import { Symbol } from "@/types/symbols";
@@ -23,7 +23,6 @@ export default function Home() {
   const [data, setData] = useState<any>([]);
   const [symbolList, setSymbolList] = useState<Symbol[]>([]);
   // * Test
-
   const initialData: ChartData[] = [
     { time: "2025-08-25", value: 32.51 },
     { time: "2025-08-26", value: 31.11 },
@@ -82,7 +81,7 @@ export default function Home() {
         <div className="stock-container flex flex-col">
           {symbolList.length > 0 ? (
             <div className="stock-list-container flex flex-col">
-              <StockItem data={symbolList} />
+              <StockDropdown data={symbolList} />
             </div>
           ) : (
             <div>Loading...</div>
