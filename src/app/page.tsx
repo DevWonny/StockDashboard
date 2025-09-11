@@ -19,7 +19,7 @@ interface ChartData {
 
 export default function Home() {
   const [data, setData] = useState<any>([]);
-
+  const [symbolList, setSymbolList] = useState();
   // * Test
 
   const initialData: ChartData[] = [
