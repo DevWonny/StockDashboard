@@ -63,6 +63,10 @@ export default function Home() {
   //   console.log("🚀 ~ Home ~ data:", data);
   // }, [data]);
 
+  const onSetSymbol = (symbol: string) => {
+    console.log("🚀 ~ onSetSymbol ~ symbol:", symbol);
+  };
+
   return (
     <div className="main-wrap">
       <Swiper className="header-container w-full" slidesPerView={8}>
@@ -81,7 +85,7 @@ export default function Home() {
         <div className="stock-container flex flex-col">
           {symbolList.length > 0 ? (
             <div className="stock-list-container flex flex-col">
-              <StockDropdown data={symbolList} />
+              <StockDropdown data={symbolList} onSetSymbol={onSetSymbol} />
             </div>
           ) : (
             <div>Loading...</div>

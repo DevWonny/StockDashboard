@@ -17,13 +17,15 @@ import "@/styles/components/StockItem.scss";
 
 interface StockProps {
   data: Symbol[];
+  onSetSymbol: (symbol: string) => void;
 }
-export default function StockItem({ data }: StockProps) {
+export default function StockItem({ data, onSetSymbol }: StockProps) {
   // ! 이름만 사용할수 있음... 데이터 내용 부실 -> 드롭다운 형태로 변경
   const [dataDescription, setDataDescription] = useState<string>("");
 
   const onItemClick = (item: Symbol) => {
     setDataDescription(item.description);
+    onSetSymbol(item.symbol);
   };
 
   useEffect(() => {

@@ -15,10 +15,7 @@ export async function symbolList() {
 
   try {
     const res = await axios.get(`https://finnhub.io/api/v1/stock/symbol?exchange=US&token=${key}`)
-
     const filterData = res.data.filter((item: Symbol) => TOP50_TICKERS.includes(item.symbol))
-
-
     return filterData.sort((a: Symbol, b: Symbol) => a.description.localeCompare(b.description));
   } catch (err) {
     console.log("🚀 ~ symbolList ~ err:", err);
