@@ -45,6 +45,7 @@ export default function Home() {
         return;
       }
     };
+    symbols();
 
     // symbolList();
     // const socket = io("http://localhost:4000");
