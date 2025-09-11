@@ -8,6 +8,8 @@ import HeaderItem from "@/components/HeaderItem";
 import Chart from "@/components/Chart";
 import StockItem from "@/components/StockItem";
 import StockDetail from "@/components/StockDetail";
+// type
+import { Symbol } from "@/types/symbols";
 // style
 import "swiper/css";
 import "@/styles/app/main.scss";
@@ -19,7 +21,7 @@ interface ChartData {
 
 export default function Home() {
   const [data, setData] = useState<any>([]);
-  const [symbolList, setSymbolList] = useState();
+  const [symbolList, setSymbolList] = useState<Symbol[]>([]);
   // * Test
 
   const initialData: ChartData[] = [
@@ -39,12 +41,13 @@ export default function Home() {
     const symbols = async () => {
       try {
         const res = await axios.get("/api/symbols");
-        console.log("🚀 ~ symbols ~ res:", res);
+        setSymbolList(res.data);
       } catch (err) {
         console.log("🚀 ~ symbols ~ err:", err);
         return;
       }
     };
+
     symbols();
 
     // symbolList();
@@ -77,11 +80,15 @@ export default function Home() {
         </div>
 
         <div className="stock-container flex flex-col">
-          <div className="stock-list-container flex flex-col">
-            {Array.from({ length: 100 }, (_, i) => (
-              <StockItem key={`stock-item-index-${i}`} />
-            ))}
-          </div>
+          {symbolList.length > 0 ? (
+            <div className="stock-list-container flex flex-col">
+              {symbolList.map((item, index) => (
+                <StockItem key={`stock-item-key=${index}`} data={item} />
+              ))}
+            </div>
+          ) : (
+            <div>Loading...</div>
+          )}
 
           <StockDetail />
         </div>
