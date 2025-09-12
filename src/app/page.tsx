@@ -63,8 +63,14 @@ export default function Home() {
   //   console.log("🚀 ~ Home ~ data:", data);
   // }, [data]);
 
-  const onSetSymbol = (symbol: string) => {
-    console.log("🚀 ~ onSetSymbol ~ symbol:", symbol);
+  const onSetSymbol = async (symbol: string) => {
+    try {
+      const res = await axios.get(`/api/stock/${symbol}/company`);
+      console.log("🚀 ~ onSetSymbol ~ res:", res);
+    } catch (err) {
+      console.log("🚀 ~ onSetSymbol ~ err:", err);
+      return;
+    }
   };
 
   return (
