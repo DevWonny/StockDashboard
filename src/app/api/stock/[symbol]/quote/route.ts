@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { company } from "@/service/Stock";
+import { quote } from "@/service/Stock";
 // type
 import StockParams from "@/types/stockSymbol";
 
@@ -7,7 +7,7 @@ export async function GET(req: Request, { params }: StockParams) {
   try {
     const { symbol } = await params;
     console.log("🚀 ~ GET ~ symbol:", symbol)
-    const data = await company(symbol);
+    const data = await quote(symbol);
     return NextResponse.json(data);
   } catch (err) {
     console.log("🚀 ~ Financial GET ~ err:", err)

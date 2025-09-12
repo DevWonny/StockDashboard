@@ -22,8 +22,11 @@ export async function company(symbol: string) {
 export async function financial(symbol: string) {
   // * Symbol
   checkKey();
+  console.log(333)
   try {
-    const res = await axios.get(`https://finnhub.io/api/v1/stock/metric?symbol=${symbol}&token=${key}`)
+    console.log(2222)
+    const res = await axios.get(`https://finnhub.io/api/v1/stock/metric?symbol=${symbol}&metric=all&token=${key}`)
+    console.log("🚀 ~ financial ~ res:", res)
     return res.data;
   } catch (err) {
     console.log("🚀 ~ financial ~ err:", err)
