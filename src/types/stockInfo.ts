@@ -27,5 +27,11 @@ export interface Surprises {
 }
 
 export interface Quote {
-
+  c: number, // 현재 가격
+  d: number, // 변화
+  dp: number, // 변화율
+  h: number, // 금일 최고가
+  l: number, // 금일 최저가
+  o: number, // 금일 오픈가
+  pc: number, // 이전 종료가
 }
