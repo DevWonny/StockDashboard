@@ -115,7 +115,12 @@ export default function Home() {
             <div>Loading...</div>
           )}
 
-          <StockDetail />
+          <StockDetail
+            company={companyInfo}
+            financial={financialInfo}
+            quote={quoteInfo}
+            surprises={surprisesInfo}
+          />
         </div>
       </div>
     </div>

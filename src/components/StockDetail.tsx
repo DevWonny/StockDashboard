@@ -1,8 +1,23 @@
 "use client";
 // style
 import "@/styles/components/StockDetail.scss";
+interface StockDetailProps {
+  company: any;
+  financial: any;
+  quote: any;
+  surprises: any;
+}
 
-export default function StockDetail() {
+export default function StockDetail({
+  company,
+  financial,
+  quote,
+  surprises,
+}: StockDetailProps) {
+  console.log("🚀 ~ StockDetail ~ surprises:", surprises);
+  console.log("🚀 ~ StockDetail ~ quote:", quote);
+  console.log("🚀 ~ StockDetail ~ financial:", financial);
+  console.log("🚀 ~ StockDetail ~ company:", company);
   // ! Company Profile 2
   // * 회사 로고(클릭시 사이트 새탭) + 이름 + 국가
   // * 시가 총액(Market Capitalization) + 상장 거래소
