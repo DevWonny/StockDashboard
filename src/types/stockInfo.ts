@@ -16,10 +16,16 @@ export interface Financial {
   // 대기
 }
 
-export interface Quote {
-
+export interface Surprises {
+  actual: number, // 실제 수익 결과
+  estimate: number, // 예상 수입
+  period: string, // 보고 기간
+  quarter: number, // 분기 
+  surprise: number, // 실제와 추정 편차
+  surprisePercent: number, // 실제와 추정 편차 퍼센트
+  year: number, // 회계연도
 }
 
-export interface Surprises {
+export interface Quote {
 
 }
