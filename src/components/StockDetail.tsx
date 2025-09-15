@@ -23,6 +23,11 @@ export default function StockDetail({
   console.log("🚀 ~ StockDetail ~ financial:", financial);
   console.log("🚀 ~ StockDetail ~ company:", company);
 
+  const onQuarterConvert = (year: number, quarter: number) => {
+    const convertYear = year % 100;
+    return `${convertYear}년도 ${quarter}분기 실적`;
+  };
+
   // ! Company Profile 2
   // * 회사 로고(클릭시 사이트 새탭) + 이름 + 국가
   // * 시가 총액(Market Capitalization) + 상장 거래소
@@ -84,57 +89,28 @@ export default function StockDetail({
       </div>
 
       <div className="performance-info flex flex-col">
-        <div className="performance-item flex flex-col">
-          <div className="title-container flex flex-row items-center">
-            <p className="title">25년 2분기 실적</p>
-            <p className="period">(2025-06-30)</p>
+        {surprises.map((item, index) => (
+          <div
+            className="performance-item flex flex-col"
+            key={`stock-detail-performance-item-surprise-${item.symbol}-${index}`}
+          >
+            <div className="title-container flex flex-row items-center">
+              <p className="title">
+                {onQuarterConvert(item.year, item.quarter)}
+              </p>
+
+              <p className="period">{`(${item.period})`}</p>
+            </div>
+
+            <p className="estimate">{`예상 수입 : ${item.estimate}`}</p>
+            <p className="actual">{`실제 수입 : ${item.actual}`}</p>
+            {/* 음수일 경우 붉은색으로, 양수일 경우 녹색으로 */}
+            <p className="surprise">{`Surprise : ${item.surprise}`}</p>
+            <p className="surprise-percentage">
+              {`Surprise Percentage : ${item.surprisePercent}%`}
+            </p>
           </div>
-
-          <p className="estimate">예상 수입 : 1.9744</p>
-          <p className="actual">실제 수입 : 1.88</p>
-          {/* 음수일 경우 붉은색으로, 양수일 경우 녹색으로 */}
-          <p className="surprise">Surprise : -0.0944</p>
-          <p className="surprise-percentage">Surprise Percentage : -4.7812%</p>
-        </div>
-
-        <div className="performance-item flex flex-col">
-          <div className="title-container flex flex-row items-center">
-            <p className="title">25년 1분기 실적</p>
-            <p className="period">(2025-03-31)</p>
-          </div>
-
-          <p className="estimate">예상 수입 : 1.9744</p>
-          <p className="actual">실제 수입 : 1.88</p>
-          {/* 음수일 경우 붉은색으로, 양수일 경우 녹색으로 */}
-          <p className="surprise">Surprise : -0.0944</p>
-          <p className="surprise-percentage">Surprise Percentage : -4.7812%</p>
-        </div>
-
-        <div className="performance-item flex flex-col">
-          <div className="title-container flex flex-row items-center">
-            <p className="title">24년 4분기 실적</p>
-            <p className="period">(2024-12-31)</p>
-          </div>
-
-          <p className="estimate">예상 수입 : 1.9744</p>
-          <p className="actual">실제 수입 : 1.88</p>
-          {/* 음수일 경우 붉은색으로, 양수일 경우 녹색으로 */}
-          <p className="surprise">Surprise : -0.0944</p>
-          <p className="surprise-percentage">Surprise Percentage : -4.7812%</p>
-        </div>
-
-        <div className="performance-item flex flex-col">
-          <div className="title-container flex flex-row items-center">
-            <p className="title">24년 3분기 실적</p>
-            <p className="period">(2024-09-31)</p>
-          </div>
-
-          <p className="estimate">예상 수입 : 1.9744</p>
-          <p className="actual">실제 수입 : 1.88</p>
-          {/* 음수일 경우 붉은색으로, 양수일 경우 녹색으로 */}
-          <p className="surprise">Surprise : -0.0944</p>
-          <p className="surprise-percentage">Surprise Percentage : -4.7812%</p>
-        </div>
+        ))}
       </div>
     </div>
   );

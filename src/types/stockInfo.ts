@@ -27,6 +27,7 @@ export interface Surprises {
   surprise: number, // 실제와 추정 편차
   surprisePercent: number, // 실제와 추정 편차 퍼센트
   year: number, // 회계연도
+  symbol: string
 }
 
 export interface Quote {

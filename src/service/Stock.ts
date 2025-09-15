@@ -26,7 +26,6 @@ export async function financial(symbol: string) {
   checkKey();
   try {
     const res = await axios.get(`https://finnhub.io/api/v1/stock/metric?symbol=${symbol}&metric=all&token=${key}`)
-    console.log("🚀 ~ financial ~ res:", res)
     const data = res.data.metric;
     const financialData = {
       day10AverageTradingVolume: data['10DayAverageTradingVolume'],
