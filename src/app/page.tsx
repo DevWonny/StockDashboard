@@ -10,7 +10,7 @@ import StockDropdown from "@/components/StockDropdown";
 import StockDetail from "@/components/StockDetail";
 // type
 import { Symbol } from "@/types/symbols";
-import { Company, Surprises, Quote } from "@/types/stockInfo";
+import { Company, Surprises, Quote, Financial } from "@/types/stockInfo";
 // style
 import "swiper/css";
 import "@/styles/app/main.scss";
@@ -24,8 +24,8 @@ export default function Home() {
   const [data, setData] = useState<any>([]);
   const [symbolList, setSymbolList] = useState<Symbol[]>([]);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
-  const [financialInfo, setFinancialInfo] = useState(null);
-  const [surprisesInfo, setSurprisesInfo] = useState<Surprises | null>(null);
+  const [financialInfo, setFinancialInfo] = useState<Financial | null>(null);
+  const [surprisesInfo, setSurprisesInfo] = useState<Surprises[] | null>(null);
   const [quoteInfo, setQuoteInfo] = useState<Quote | null>(null);
   const [isAllInfo, setIsAllInfo] = useState(false);
 
@@ -133,7 +133,7 @@ export default function Home() {
           {isAllInfo ? (
             <StockDetail
               company={companyInfo!}
-              financial={financialInfo}
+              financial={financialInfo!}
               quote={quoteInfo!}
               surprises={surprisesInfo!}
             />

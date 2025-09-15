@@ -14,6 +14,9 @@ export interface Company {
 
 export interface Financial {
   // 대기
+  day10AverageTradingVolume: number, // 10일 평균 거래량
+  week52High: number, // 52주 최고가
+  week52Low: number // 52주 최저가
 }
 
 export interface Surprises {

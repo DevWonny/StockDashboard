@@ -1,15 +1,15 @@
 "use client";
 import { useState, useEffect } from "react";
 // type
-import { Company, Surprises, Quote } from "@/types/stockInfo";
+import { Company, Surprises, Quote, Financial } from "@/types/stockInfo";
 // style
 import "@/styles/components/StockDetail.scss";
 
 interface StockDetailProps {
   company: Company;
-  financial: any;
+  financial: Financial;
   quote: Quote;
-  surprises: Surprises;
+  surprises: Surprises[];
 }
 
 export default function StockDetail({
@@ -40,13 +40,13 @@ export default function StockDetail({
           <div className="logo">
             <img src={company.logo} alt="Company Logo" />
           </div>
-          <h1 className="text-lg font-bold">Name</h1>
-          <h2 className="text-xs ">Nation</h2>
+          <h1 className="text-lg font-bold">{company.name}</h1>
+          <h2 className="text-xs ">{company.country}</h2>
         </div>
 
         <div className="market-container flex flex-row items-center">
-          <h1 className="text-2xl">Capitalization</h1>
-          <p className="text-sm">Exchange</p>
+          <h1 className="text-2xl">{company.marketCapitalization}</h1>
+          <p className="text-sm">{company.exchange}</p>
         </div>
       </div>
 
@@ -55,17 +55,17 @@ export default function StockDetail({
           {/* 10일간 평균 거래량 */}
           <div className="average-volume flex flex-col">
             <p>10일 평균 거래량</p>
-            <span>10.423</span>
+            <span>{financial.day10AverageTradingVolume}</span>
           </div>
           {/* 52주 최고가 */}
           <div className="week-high flex flex-col">
             <p>52주 최고가</p>
-            <span>23.3</span>
+            <span>{financial.week52High}</span>
           </div>
           {/* 52주 최저가 */}
           <div className="week-low flex flex-col">
             <p>52주 최저가</p>
-            <span>19.5</span>
+            <span>{financial.week52Low}</span>
           </div>
         </div>
 
@@ -73,12 +73,12 @@ export default function StockDetail({
           {/* 금일 최고가 */}
           <div className="today-high flex flex-col">
             <p>금일 최고가</p>
-            <span>234.1</span>
+            <span>{quote.h}</span>
           </div>
           {/* 금일 최저가 */}
           <div className="today-low flex flex-col">
             <p>금일 최저가</p>
-            <span>103.4</span>
+            <span>{quote.l}</span>
           </div>
         </div>
       </div>

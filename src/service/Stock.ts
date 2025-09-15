@@ -1,4 +1,6 @@
 import axios from 'axios';
+// type
+import { Financial } from '@/types/stockInfo';
 
 const key = process.env.FINNHUB_TOKEN;
 
@@ -22,12 +24,16 @@ export async function company(symbol: string) {
 export async function financial(symbol: string) {
   // * Symbol
   checkKey();
-  console.log(333)
   try {
-    console.log(2222)
     const res = await axios.get(`https://finnhub.io/api/v1/stock/metric?symbol=${symbol}&metric=all&token=${key}`)
     console.log("🚀 ~ financial ~ res:", res)
-    return res.data;
+    const data = res.data.metric;
+    const financialData = {
+      day10AverageTradingVolume: data['10DayAverageTradingVolume'],
+      week52High: data['52WeekHigh'],
+      week52Low: data['52WeekLow']
+    }
+    return financialData as Financial;
   } catch (err) {
     console.log("🚀 ~ financial ~ err:", err)
     return;
