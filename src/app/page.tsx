@@ -69,6 +69,12 @@ export default function Home() {
   //   console.log("🚀 ~ Home ~ data:", data);
   // }, [data]);
 
+  useEffect(() => {
+    if (symbolList.length > 0) {
+      onSetSymbol(symbolList[0].symbol);
+    }
+  }, [symbolList]);
+
   const onSetSymbol = async (symbol: string) => {
     const promises = [
       await axios.get(`/api/stock/${symbol}/company`),
