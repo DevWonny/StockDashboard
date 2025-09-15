@@ -76,6 +76,13 @@ div.stock-detail-container {
 
       p {
         font-size: 14px;
+
+        &.check-red {
+          color: #f04b4b;
+        }
+        &.check-green {
+          color: #7ce564;
+        }
       }
     }
   }

@@ -28,16 +28,14 @@ export default function StockDetail({
     return `${convertYear}년도 ${quarter}분기 실적`;
   };
 
-  // ! Company Profile 2
-  // * 회사 로고(클릭시 사이트 새탭) + 이름 + 국가
-  // * 시가 총액(Market Capitalization) + 상장 거래소
-  // ! Basic Financial
-  // * 10일간 평균 거래량
-  // * 52주 최고가 + 최저가
-  // ! EPS Surprises
-  // * 최근 4분기 실적
-  // ! Quote
-  // * 금일 최고가 + 최저가
+  const onCheckSurprise = (surprise: number) => {
+    if (surprise < 0) {
+      return "check-red";
+    } else {
+      return "check-green";
+    }
+  };
+
   return (
     <div className="stock-detail-container flex flex-col px-[10px] py-[20px]">
       <div className="company-info flex flex-col">
@@ -105,8 +103,14 @@ export default function StockDetail({
             <p className="estimate">{`예상 수입 : ${item.estimate}`}</p>
             <p className="actual">{`실제 수입 : ${item.actual}`}</p>
             {/* 음수일 경우 붉은색으로, 양수일 경우 녹색으로 */}
-            <p className="surprise">{`Surprise : ${item.surprise}`}</p>
-            <p className="surprise-percentage">
+            <p
+              className={`surprise ${onCheckSurprise(item.surprise)}`}
+            >{`Surprise : ${item.surprise}`}</p>
+            <p
+              className={`surprise-percentage ${onCheckSurprise(
+                item.surprisePercent
+              )}`}
+            >
               {`Surprise Percentage : ${item.surprisePercent}%`}
             </p>
           </div>
