@@ -23,6 +23,11 @@ interface ChartData {
 export default function Home() {
   const [data, setData] = useState<any>([]);
   const [symbolList, setSymbolList] = useState<Symbol[]>([]);
+  const [companyInfo, setCompanyInfo] = useState(null);
+  const [financialInfo, setFinancialInfo] = useState(null);
+  const [surprisesInfo, setSurprisesInfo] = useState(null);
+  const [quoteInfo, setQuoteInfo] = useState(null);
+
   // * Test
   const initialData: ChartData[] = [
     { time: "2025-08-25", value: 32.51 },
@@ -74,7 +79,10 @@ export default function Home() {
 
     Promise.all(promises)
       .then((result) => {
-        console.log("🚀 ~ onSetSymbol ~ result:", result);
+        setCompanyInfo(result[0].data);
+        setFinancialInfo(result[1].data);
+        setQuoteInfo(result[2].data);
+        setSurprisesInfo(result[3].data);
         return;
       })
       .catch((err) => {
