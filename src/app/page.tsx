@@ -10,10 +10,10 @@ import StockDropdown from "@/components/StockDropdown";
 import StockDetail from "@/components/StockDetail";
 // type
 import { Symbol } from "@/types/symbols";
+import { Company, Surprises, Quote } from "@/types/stockInfo";
 // style
 import "swiper/css";
 import "@/styles/app/main.scss";
-import { company } from "@/service/Stock";
 
 interface ChartData {
   time: string;
@@ -23,10 +23,11 @@ interface ChartData {
 export default function Home() {
   const [data, setData] = useState<any>([]);
   const [symbolList, setSymbolList] = useState<Symbol[]>([]);
-  const [companyInfo, setCompanyInfo] = useState(null);
+  const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
   const [financialInfo, setFinancialInfo] = useState(null);
-  const [surprisesInfo, setSurprisesInfo] = useState(null);
-  const [quoteInfo, setQuoteInfo] = useState(null);
+  const [surprisesInfo, setSurprisesInfo] = useState<Surprises | null>(null);
+  const [quoteInfo, setQuoteInfo] = useState<Quote | null>(null);
+  const [isAllInfo, setIsAllInfo] = useState(false);
 
   // * Test
   const initialData: ChartData[] = [
@@ -75,6 +76,14 @@ export default function Home() {
     }
   }, [symbolList]);
 
+  useEffect(() => {
+    if (companyInfo && financialInfo && quoteInfo && surprisesInfo) {
+      setIsAllInfo(true);
+    } else {
+      setIsAllInfo(false);
+    }
+  }, [companyInfo, financialInfo, quoteInfo, surprisesInfo]);
+
   const onSetSymbol = async (symbol: string) => {
     const promises = [
       await axios.get(`/api/stock/${symbol}/company`),
@@ -87,8 +96,8 @@ export default function Home() {
       .then((result) => {
         setCompanyInfo(result[0].data);
         setFinancialInfo(result[1].data);
-        setQuoteInfo(result[2].data);
-        setSurprisesInfo(result[3].data);
+        setSurprisesInfo(result[2].data);
+        setQuoteInfo(result[3].data);
         return;
       })
       .catch((err) => {
@@ -121,12 +130,16 @@ export default function Home() {
             <div>Loading...</div>
           )}
 
-          <StockDetail
-            company={companyInfo}
-            financial={financialInfo}
-            quote={quoteInfo}
-            surprises={surprisesInfo}
-          />
+          {isAllInfo ? (
+            <StockDetail
+              company={companyInfo!}
+              financial={financialInfo}
+              quote={quoteInfo!}
+              surprises={surprisesInfo!}
+            />
+          ) : (
+            <div>Loading...</div>
+          )}
         </div>
       </div>
     </div>
