@@ -65,20 +65,22 @@ export default function Home() {
   // }, [data]);
 
   const onSetSymbol = async (symbol: string) => {
-    const promise = [];
-    try {
-      const res = await axios.get(`/api/stock/${symbol}/company`);
-      console.log("🚀 ~ onSetSymbol ~ res:", res);
-      const res1 = await axios.get(`/api/stock/${symbol}/financial`);
-      console.log("🚀 ~ onSetSymbol ~ res1:", res1);
-      const res2 = await axios.get(`/api/stock/${symbol}/surprises`);
-      console.log("🚀 ~ onSetSymbol ~ res2:", res2);
-      const res3 = await axios.get(`/api/stock/${symbol}/quote`);
-      console.log("🚀 ~ onSetSymbol ~ res3:", res3);
-    } catch (err) {
-      console.log("🚀 ~ onSetSymbol ~ err:", err);
-      return;
-    }
+    const promises = [
+      await axios.get(`/api/stock/${symbol}/company`),
+      await axios.get(`/api/stock/${symbol}/financial`),
+      await axios.get(`/api/stock/${symbol}/surprises`),
+      await axios.get(`/api/stock/${symbol}/quote`),
+    ];
+
+    Promise.all(promises)
+      .then((result) => {
+        console.log("🚀 ~ onSetSymbol ~ result:", result);
+        return;
+      })
+      .catch((err) => {
+        console.log("🚀 ~ onSetSymbol ~ err:", err);
+        return;
+      });
   };
 
   return (
