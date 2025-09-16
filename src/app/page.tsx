@@ -1,6 +1,6 @@
 "use client";
-import { useEffect, useState } from "react";
-import { io } from "socket.io-client";
+import { useEffect, useState, useRef } from "react";
+import { io, Socket } from "socket.io-client";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
 // component
@@ -21,6 +21,8 @@ interface ChartData {
 }
 
 export default function Home() {
+  const socketRef = useRef<Socket | null>(null);
+  const [currentSymbol, setCurrentSymbol] = useState<string | null>(null);
   const [data, setData] = useState<any>([]);
   const [symbolList, setSymbolList] = useState<Symbol[]>([]);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
@@ -55,10 +57,19 @@ export default function Home() {
     };
     symbols();
 
-    const socket = io("http://localhost:4000");
-    socket.on("stockUpdate", (data) =>
-      setData((prev: any) => [...data, ...prev].slice(0, 50))
-    );
+    // * Socket
+    socketRef.current = io("http://localthost:4000");
+    const socket = socketRef.current;
+
+    // * 소켓이 연결되면 실행. 연결 성공 로그 등 추가 로직(예: 인증 토큰 전송)에 쓸 수 있습니다.
+    socket.on("connect", () => {
+      console.log("Socket Connect", socket.id, socket);
+    });
+
+    socket.on("stockUpdate", (trade: any) => {
+      setData((prev: any) => [trade, ...prev].slice(0, 50));
+    });
+
     return () => {
       socket.disconnect();
     };
@@ -83,6 +94,14 @@ export default function Home() {
   }, [companyInfo, financialInfo, quoteInfo, surprisesInfo]);
 
   const onSetSymbol = async (symbol: string) => {
+    // * 기존 심볼 구독 해지
+    if (currentSymbol) {
+      socketRef.current?.emit("unsubscribe", currentSymbol);
+    }
+
+    // * 새로운 심볼 구독
+    socketRef.current?.emit("subscribe", symbol);
+    setCurrentSymbol(symbol);
     const promises = [
       await axios.get(`/api/stock/${symbol}/company`),
       await axios.get(`/api/stock/${symbol}/financial`),
