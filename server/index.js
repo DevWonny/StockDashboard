@@ -30,14 +30,17 @@ ws.on("open", () => {
 // Finnhub -> Data 수신 -> 가공 -> Client
 ws.on("message", (msg) => {
   const data = JSON.parse(msg.toString());
+  console.log("🚀 ~ data:", data);
 
   if (data.type === "trade") {
-    const trades = data.data.map((d) => ({
-      symbol: d.s,
-      price: d.p,
-      timestamp: d.t,
-      volume: d.v,
-    }));
+    const trades = data.data
+      .filter((d) => d.s === "BINANCE:BTCUSDT")
+      .map((d) => ({
+        symbol: d.s,
+        price: d.p,
+        timestamp: d.t,
+        volume: d.v,
+      }));
 
     // socket.io Broadcast
     io.emit("stockUpdate", trades);

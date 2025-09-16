@@ -53,22 +53,20 @@ export default function Home() {
         return;
       }
     };
-
     symbols();
 
-    // symbolList();
-    // const socket = io("http://localhost:4000");
-    // socket.on("stockUpdate", (data) =>
-    //   setData((prev: any) => [...data, ...prev].slice(0, 50))
-    // );
-    // return () => {
-    //   socket.disconnect();
-    // };
+    const socket = io("http://localhost:4000");
+    socket.on("stockUpdate", (data) =>
+      setData((prev: any) => [...data, ...prev].slice(0, 50))
+    );
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
-  // useEffect(() => {
-  //   console.log("🚀 ~ Home ~ data:", data);
-  // }, [data]);
+  useEffect(() => {
+    console.log("🚀 ~ Home ~ data:", data);
+  }, [data]);
 
   useEffect(() => {
     if (symbolList.length > 0) {

@@ -6,7 +6,6 @@ import StockParams from "@/types/stockSymbol";
 export async function GET(req: Request, { params }: StockParams) {
   try {
     const { symbol } = await params;
-    console.log("🚀 ~ GET ~ symbol:", symbol)
     const data = await surprises(symbol);
     return NextResponse.json(data);
   } catch (err) {
