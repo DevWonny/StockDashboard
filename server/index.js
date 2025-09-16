@@ -16,42 +16,68 @@ const io = new Server(server, {
 const FINNHUB_URL = `wss://ws.finnhub.io?token=d2nqnr1r01qsrqkpn0p0d2nqnr1r01qsrqkpn0pg`;
 const ws = new WebSocket(FINNHUB_URL);
 
-// 주요 심볼
-// const symbols = ["AAPL", "BTC-USD", "ETH-USD", "EUR/USD", "GBP/USD"];
-const symbols = ["AAPL", "BINANCE:BTCUSDT", "OANDA:EUR_USD"];
+// Client별 구독 관리
+const clientSubscribe = {};
 
+// Finnhub Connect
 ws.on("open", () => {
   console.log("Connect to Finnhub WebSocket!");
-  symbols.forEach((s) => {
-    ws.send(JSON.stringify({ type: "subscribe", symbol: s }));
-  });
 });
 
 // Finnhub -> Data 수신 -> 가공 -> Client
 ws.on("message", (msg) => {
   const data = JSON.parse(msg.toString());
-  console.log("🚀 ~ data:", data);
-
   if (data.type === "trade") {
-    const trades = data.data
-      .filter((d) => d.s === "BINANCE:BTCUSDT")
-      .map((d) => ({
+    data.data.forEach((d) => {
+      const trade = {
         symbol: d.s,
         price: d.p,
         timestamp: d.t,
         volume: d.v,
-      }));
+      };
 
-    // socket.io Broadcast
-    io.emit("stockUpdate", trades);
+      // 심볼 구독중인 클라이언트에게만 전달
+      for (const [clientId, symbols] of Object.entries(clientSubscribe)) {
+        if (symbols.has(trade.symbol)) {
+          io.to(clientId).emit("stockUpdate", trade);
+        }
+      }
+    });
   }
 });
 
-// Express 기본 라우트
+// Client Connect Event
+io.on("connection", (socket) => {
+  console.log("Client Connect!", socket.id, socket);
+  clientSubscribe[socket.id] = new Set();
+
+  // Symbol 구독 요청
+  socket.on("subscribe", (symbol) => {
+    console.log(`Client ${socket.id} Subscribe to ${symbol}`);
+    clientSubscribe[socket.id].add(symbol);
+    ws.send(JSON.stringify({ type: "subscribe", symbol }));
+  });
+
+  // Symbol 구독 해지 요청
+  socket.on("unsubscribe", (symbol) => {
+    console.log(`Client ${socket.id} Unsubscribe to ${symbol}`);
+    clientSubscribe[socket.id].delete(symbol);
+    ws.send(JSON.stringify({ type: "unsubscribe", symbol }));
+  });
+
+  // Client Disconnect
+  socket.on("disconnect", () => {
+    console.log(`Client Disconnect ${socket.id}`);
+    delete clientSubscribe[socket.id];
+  });
+});
+
+// Express 기본 라우트 -> 추후 제거 예정
 app.get("/", (req, res) => {
   res.send("Backend Server is running!");
 });
 
+// Server 실행
 server.listen(4000, () => {
   console.log("Backend listening on http://localhost:4000");
 });
