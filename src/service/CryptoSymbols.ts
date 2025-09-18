@@ -15,7 +15,8 @@ export async function cryptoSymbolList() {
   try {
     const res = await axios.get(`https://finnhub.io/api/v1/crypto/symbol?exchange=binance&token=${key}`);
     console.log("🚀 ~ cryptoSymbolList ~ res:", res)
-    return 'Crypto Test'
+    const filterData = res.data.filter((item: any) => TOP10_TICKERS.includes(item.symbol));
+    return filterData.sort((a: any, b: any) => a.description.localeCompare(b.description))
   } catch (err) {
     console.log("🚀 ~ cryptoSymbolList ~ err):", err);
     return;

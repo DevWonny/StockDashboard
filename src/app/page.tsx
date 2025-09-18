@@ -57,22 +57,33 @@ export default function Home() {
     };
     symbols();
 
+    const cryptoList = async () => {
+      try {
+        const res = await axios.get("/api/cryptoSymbols");
+        console.log("🚀 ~ cryptoList ~ res:", res);
+      } catch (err) {
+        console.log("🚀 ~ cryptoList ~ err:", err);
+        return;
+      }
+    };
+    cryptoList();
+
     // * Socket
-    socketRef.current = io("http://localhost:4000");
-    const socket = socketRef.current;
+    // socketRef.current = io("http://localhost:4000");
+    // const socket = socketRef.current;
 
     // * 소켓이 연결되면 실행. 연결 성공 로그 등 추가 로직(예: 인증 토큰 전송)에 쓸 수 있습니다.
-    socket.on("connect", () => {
-      console.log("Socket Connect", socket.id, socket);
-    });
+    // socket.on("connect", () => {
+    //   console.log("Socket Connect", socket.id, socket);
+    // });
 
-    socket.on("stockUpdate", (trade: any) => {
-      setData((prev: any) => [trade, ...prev].slice(0, 50));
-    });
+    // socket.on("stockUpdate", (trade: any) => {
+    //   setData((prev: any) => [trade, ...prev].slice(0, 50));
+    // });
 
-    return () => {
-      socket.disconnect();
-    };
+    // return () => {
+    //   socket.disconnect();
+    // };
   }, []);
 
   useEffect(() => {
