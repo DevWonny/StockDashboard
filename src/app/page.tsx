@@ -58,7 +58,7 @@ export default function Home() {
     symbols();
 
     // * Socket
-    socketRef.current = io("http://localthost:4000");
+    socketRef.current = io("http://localhost:4000");
     const socket = socketRef.current;
 
     // * 소켓이 연결되면 실행. 연결 성공 로그 등 추가 로직(예: 인증 토큰 전송)에 쓸 수 있습니다.
@@ -100,7 +100,7 @@ export default function Home() {
     }
 
     // * 새로운 심볼 구독
-    socketRef.current?.emit("subscribe", symbol);
+    socketRef.current?.emit("subscribe", "BINANCE:BTCUSDT");
     setCurrentSymbol(symbol);
     const promises = [
       await axios.get(`/api/stock/${symbol}/company`),

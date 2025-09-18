@@ -18,11 +18,6 @@ export default function StockDetail({
   quote,
   surprises,
 }: StockDetailProps) {
-  console.log("🚀 ~ StockDetail ~ surprises:", surprises);
-  console.log("🚀 ~ StockDetail ~ quote:", quote);
-  console.log("🚀 ~ StockDetail ~ financial:", financial);
-  console.log("🚀 ~ StockDetail ~ company:", company);
-
   const onQuarterConvert = (year: number, quarter: number) => {
     const convertYear = year % 100;
     return `${convertYear}년도 ${quarter}분기 실적`;
