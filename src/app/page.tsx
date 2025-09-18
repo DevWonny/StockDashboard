@@ -100,7 +100,7 @@ export default function Home() {
     }
 
     // * 새로운 심볼 구독
-    socketRef.current?.emit("subscribe", "BINANCE:BTCUSDT");
+    socketRef.current?.emit("subscribe", symbol);
     setCurrentSymbol(symbol);
     const promises = [
       await axios.get(`/api/stock/${symbol}/company`),
