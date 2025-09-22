@@ -37,7 +37,7 @@ export default function StockDropdown({ data, onSetSymbol }: StockProps) {
   }, [data]);
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger className="dropdown-trigger cursor-pointer outline-none h-[50px] text-xl font-bold">
         {dataDescription ? dataDescription : "심볼을 선택하세요."}
       </DropdownMenuTrigger>
       <DropdownMenuContent>

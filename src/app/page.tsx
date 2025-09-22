@@ -151,7 +151,7 @@ export default function Home() {
 
         <div className="stock-container flex flex-col">
           {symbolList.length > 0 ? (
-            <div className="stock-list-container flex flex-col">
+            <div className="stock-list-container flex flex-col w-full">
               <StockDropdown data={symbolList} onSetSymbol={onSetSymbol} />
             </div>
           ) : (
