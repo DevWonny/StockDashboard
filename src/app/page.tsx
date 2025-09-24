@@ -25,6 +25,7 @@ export default function Home() {
   const [currentSymbol, setCurrentSymbol] = useState<string | null>(null);
   const [data, setData] = useState<any>([]);
   const [symbolList, setSymbolList] = useState<Symbol[]>([]);
+  const [cryptoList, setCryptoList] = useState<any>([]);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
   const [financialInfo, setFinancialInfo] = useState<Financial | null>(null);
   const [surprisesInfo, setSurprisesInfo] = useState<Surprises[] | null>(null);
@@ -57,33 +58,33 @@ export default function Home() {
     };
     symbols();
 
-    const cryptoList = async () => {
+    const cryptos = async () => {
       try {
         const res = await axios.get("/api/cryptoSymbols");
-        console.log("🚀 ~ cryptoList ~ res:", res);
+        setCryptoList(res.data);
       } catch (err) {
-        console.log("🚀 ~ cryptoList ~ err:", err);
+        console.log("🚀 ~ cryptos ~ err:", err);
         return;
       }
     };
-    cryptoList();
+    cryptos();
 
     // * Socket
-    // socketRef.current = io("http://localhost:4000");
-    // const socket = socketRef.current;
+    socketRef.current = io("http://localhost:4000");
+    const socket = socketRef.current;
 
     // * 소켓이 연결되면 실행. 연결 성공 로그 등 추가 로직(예: 인증 토큰 전송)에 쓸 수 있습니다.
-    // socket.on("connect", () => {
-    //   console.log("Socket Connect", socket.id, socket);
-    // });
+    socket.on("connect", () => {
+      console.log("Socket Connect", socket.id, socket);
+    });
 
-    // socket.on("stockUpdate", (trade: any) => {
-    //   setData((prev: any) => [trade, ...prev].slice(0, 50));
-    // });
+    socket.on("stockUpdate", (trade: any) => {
+      setData((prev: any) => [trade, ...prev].slice(0, 50));
+    });
 
-    // return () => {
-    //   socket.disconnect();
-    // };
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -108,6 +109,7 @@ export default function Home() {
     // * 기존 심볼 구독 해지
     if (currentSymbol) {
       socketRef.current?.emit("unsubscribe", currentSymbol);
+      setData([]);
     }
 
     // * 새로운 심볼 구독
