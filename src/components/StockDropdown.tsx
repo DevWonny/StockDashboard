@@ -40,17 +40,25 @@ export default function StockDropdown({ data, onSetSymbol }: StockProps) {
       <DropdownMenuTrigger className="dropdown-trigger cursor-pointer outline-none h-[50px] text-xl font-bold">
         {dataDescription ? dataDescription : "심볼을 선택하세요."}
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
-        <DropdownMenuLabel>심볼을 선택하세요.</DropdownMenuLabel>
+      <DropdownMenuContent className="dropdown-content">
+        <DropdownMenuLabel className="cursor-default">
+          심볼을 선택하세요.
+        </DropdownMenuLabel>
         <DropdownMenuSeparator></DropdownMenuSeparator>
         {data.length > 0 &&
           data.map((item, index) => (
-            <DropdownMenuItem
-              key={`stock-dropdown-item-${item.figi}-${index}`}
-              onClick={() => onItemClick(item)}
-            >
-              {item.description}
-            </DropdownMenuItem>
+            <>
+              <DropdownMenuItem
+                key={`stock-dropdown-item-${item.figi}-${index}`}
+                className="cursor-pointer"
+                onClick={() => onItemClick(item)}
+              >
+                {item.description}
+              </DropdownMenuItem>
+              <DropdownMenuSeparator
+                key={`stock-dropdown-item-separator-${index}`}
+              />
+            </>
           ))}
       </DropdownMenuContent>
     </DropdownMenu>
