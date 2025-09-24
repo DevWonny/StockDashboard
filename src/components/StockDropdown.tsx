@@ -47,7 +47,7 @@ export default function StockDropdown({ data, onSetSymbol }: StockProps) {
         <DropdownMenuSeparator></DropdownMenuSeparator>
         {data.length > 0 &&
           data.map((item, index) => (
-            <>
+            <div key={`stock-dropdown-div-${index}`}>
               <DropdownMenuItem
                 key={`stock-dropdown-item-${item.figi}-${index}`}
                 className="cursor-pointer"
@@ -58,7 +58,7 @@ export default function StockDropdown({ data, onSetSymbol }: StockProps) {
               <DropdownMenuSeparator
                 key={`stock-dropdown-item-separator-${index}`}
               />
-            </>
+            </div>
           ))}
       </DropdownMenuContent>
     </DropdownMenu>
