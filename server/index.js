@@ -3,6 +3,7 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import WebSocket from "ws";
+import dayjs from "dayjs";
 
 const app = express();
 const server = createServer(app);
@@ -32,7 +33,7 @@ ws.on("message", (msg) => {
       const trade = {
         symbol: d.s,
         price: d.p,
-        timestamp: d.t,
+        timestamp: dayjs(d.t).format("YYYY-MM-DD HH:mm:ss"),
         volume: d.v,
       };
 
