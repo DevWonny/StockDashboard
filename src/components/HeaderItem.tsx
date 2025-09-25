@@ -1,11 +1,18 @@
 "use client";
+// type
+import { CryptoSymbol } from "@/types/symbols";
 // style
 import "@/styles/components/HeaderItem.scss";
-export default function HeaderItem() {
+
+interface HeaderItemProps {
+  item: CryptoSymbol;
+}
+
+export default function HeaderItem({ item }: HeaderItemProps) {
   return (
     <div className="header-item-container py-[5px] px-[20px]">
       <div className="top-container flex justify-between text-sm">
-        <h1>Name</h1>
+        <h1>{item && item.displaySymbol}</h1>
         <h2>Last Price</h2>
       </div>
 

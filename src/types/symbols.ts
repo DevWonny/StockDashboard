@@ -9,3 +9,9 @@ export interface Symbol {
   symbol2: string,
   type: string
 }
+
+export interface CryptoSymbol {
+  description: string,
+  displaySymbol: string,
+  symbol: string
+}

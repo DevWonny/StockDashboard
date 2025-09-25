@@ -9,7 +9,7 @@ import Chart from "@/components/Chart";
 import StockDropdown from "@/components/StockDropdown";
 import StockDetail from "@/components/StockDetail";
 // type
-import { Symbol } from "@/types/symbols";
+import { Symbol, CryptoSymbol } from "@/types/symbols";
 import { Company, Surprises, Quote, Financial } from "@/types/stockInfo";
 // style
 import "swiper/css";
@@ -25,7 +25,7 @@ export default function Home() {
   const [currentSymbol, setCurrentSymbol] = useState<string | null>(null);
   const [data, setData] = useState<any>([]);
   const [symbolList, setSymbolList] = useState<Symbol[]>([]);
-  const [cryptoList, setCryptoList] = useState<any>([]);
+  const [cryptoList, setCryptoList] = useState<CryptoSymbol[]>([]);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
   const [financialInfo, setFinancialInfo] = useState<Financial | null>(null);
   const [surprisesInfo, setSurprisesInfo] = useState<Surprises[] | null>(null);
@@ -140,11 +140,11 @@ export default function Home() {
     <div className="main-wrap">
       <Swiper className="header-container w-full" slidesPerView={8}>
         {cryptoList.length > 0 &&
-          cryptoList.map((item: any, index: number) => (
+          cryptoList.map((item: CryptoSymbol, index: number) => (
             <SwiperSlide
               key={`header-swiper-slide-index-${item.symbol}-${index}`}
             >
-              <HeaderItem />
+              <HeaderItem item={item} />
             </SwiperSlide>
           ))}
       </Swiper>
