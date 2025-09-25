@@ -139,11 +139,14 @@ export default function Home() {
   return (
     <div className="main-wrap">
       <Swiper className="header-container w-full" slidesPerView={8}>
-        {Array.from({ length: 10 }, (_, i) => (
-          <SwiperSlide key={`swiper-slide-index-${i}`}>
-            <HeaderItem />
-          </SwiperSlide>
-        ))}
+        {cryptoList.length > 0 &&
+          cryptoList.map((item: any, index: number) => (
+            <SwiperSlide
+              key={`header-swiper-slide-index-${item.symbol}-${index}`}
+            >
+              <HeaderItem />
+            </SwiperSlide>
+          ))}
       </Swiper>
 
       <div className="chart-wrap  flex justify-between h-screen">
