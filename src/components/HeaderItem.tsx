@@ -6,10 +6,10 @@ import "@/styles/components/HeaderItem.scss";
 
 interface HeaderItemProps {
   item: CryptoSymbol;
-  test?: any;
+  cryptoData?: any;
 }
 
-export default function HeaderItem({ item, test }: HeaderItemProps) {
+export default function HeaderItem({ item, cryptoData }: HeaderItemProps) {
   return (
     <div className="header-item-container py-[5px] px-[20px]">
       <div className="top-container flex justify-between text-sm">
@@ -17,7 +17,8 @@ export default function HeaderItem({ item, test }: HeaderItemProps) {
       </div>
 
       <div className="bot-container text-center text-2xl">
-        <p>{test.price}</p>
+        <span>{cryptoData.price}</span>
+        <span className="text-xs">USDT</span>
       </div>
     </div>
   );

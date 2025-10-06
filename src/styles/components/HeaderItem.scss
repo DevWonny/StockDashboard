@@ -1,8 +1,11 @@
 div.header-item-container {
   div.bot-container {
-    p {
-      // color: #48d843;
-      color: #f83939;
+    span {
+      &:first-child {
+        margin-right: 3px;
+        color: #48d843;
+      }
+      color: #aaa;
     }
   }
 }

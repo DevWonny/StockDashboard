@@ -31,7 +31,8 @@ export default function Home() {
   const [surprisesInfo, setSurprisesInfo] = useState<Surprises[] | null>(null);
   const [quoteInfo, setQuoteInfo] = useState<Quote | null>(null);
   const [isAllInfo, setIsAllInfo] = useState(false);
-  const [test, setTest] = useState();
+  // * Header 가상화폐 데이터
+  const [cryptoData, setCryptoData] = useState();
 
   // * Test
   const initialData: ChartData[] = [
@@ -79,9 +80,8 @@ export default function Home() {
       console.log("Socket Connect", socket.id, socket);
     });
 
-    socket.on("cryptoSymbolUpdate", (test: any) => {
-      // * 가격만 표시되도록 구현하기
-      setTest(test);
+    socket.on("cryptoSymbolUpdate", (trade: any) => {
+      setCryptoData(trade);
     });
 
     socket.on("stockUpdate", (trade: any) => {
@@ -147,12 +147,12 @@ export default function Home() {
       <Swiper className="header-container w-full" slidesPerView={8}>
         {cryptoList.length > 0 &&
           cryptoList.map((item: CryptoSymbol, index: number) => {
-            const data = test ? test[item.symbol] : null;
+            const data = cryptoData ? cryptoData[item.symbol] : null;
             return (
               <SwiperSlide
                 key={`header-swiper-slide-index-${item.symbol}-${index}`}
               >
-                <HeaderItem item={item} test={data} />
+                <HeaderItem item={item} cryptoData={data} />
               </SwiperSlide>
             );
           })}
