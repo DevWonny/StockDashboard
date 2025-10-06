@@ -31,6 +31,7 @@ export default function Home() {
   const [surprisesInfo, setSurprisesInfo] = useState<Surprises[] | null>(null);
   const [quoteInfo, setQuoteInfo] = useState<Quote | null>(null);
   const [isAllInfo, setIsAllInfo] = useState(false);
+  const [test, setTest] = useState();
 
   // * Test
   const initialData: ChartData[] = [
@@ -79,7 +80,8 @@ export default function Home() {
     });
 
     socket.on("cryptoSymbolUpdate", (test: any) => {
-      console.log("🚀 ~ Home ~ test:", test);
+      // * 가격만 표시되도록 구현하기
+      setTest(test);
     });
 
     socket.on("stockUpdate", (trade: any) => {
@@ -144,13 +146,16 @@ export default function Home() {
     <div className="main-wrap">
       <Swiper className="header-container w-full" slidesPerView={8}>
         {cryptoList.length > 0 &&
-          cryptoList.map((item: CryptoSymbol, index: number) => (
-            <SwiperSlide
-              key={`header-swiper-slide-index-${item.symbol}-${index}`}
-            >
-              <HeaderItem item={item} />
-            </SwiperSlide>
-          ))}
+          cryptoList.map((item: CryptoSymbol, index: number) => {
+            const data = test ? test[item.symbol] : null;
+            return (
+              <SwiperSlide
+                key={`header-swiper-slide-index-${item.symbol}-${index}`}
+              >
+                <HeaderItem item={item} test={data} />
+              </SwiperSlide>
+            );
+          })}
       </Swiper>
 
       <div className="chart-wrap  flex justify-between h-screen">
