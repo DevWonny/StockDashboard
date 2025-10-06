@@ -22,14 +22,25 @@ const clientSubscribe = {};
 // track 1
 const latestDefaultTrades = {};
 
-// 초기 구독할 심볼 리스트(임시)
-const symbols = ["AAPL", "BINANCE:BTCUSDT", "OANDA:EUR_USD"];
+// 초기 구독할 심볼 리스트 - Header용
+const cryptoSymbols = [
+  "BINANCE:BTCUSDT",
+  "BINANCE:ETHUSDT",
+  "BINANCE:BNBUSDT",
+  "BINANCE:SOLUSDT",
+  "BINANCE:XRPUSDT",
+  "BINANCE:ADAUSDT",
+  "BINANCE:DOGEUSDT",
+  "BINANCE:AVAXUSDT",
+  "BINANCE:TRXUSDT",
+  "BINANCE:DOTUSDT",
+];
 
 // Finnhub Connect
 ws.on("open", () => {
   console.log("Connect to Finnhub WebSocket!");
 
-  symbols.forEach((symbol) => {
+  cryptoSymbols.forEach((symbol) => {
     ws.send(JSON.stringify({ type: "subscribe", symbol }));
   });
 });
@@ -46,9 +57,9 @@ ws.on("message", (msg) => {
         volume: d.v,
       };
 
-      if (symbols.includes(trade.symbol)) {
+      if (cryptoSymbols.includes(trade.symbol)) {
         latestDefaultTrades[trade.symbol] = trade;
-        io.emit("testUpdate", latestDefaultTrades);
+        io.emit("cryptoSymbolUpdate", latestDefaultTrades);
       }
 
       // 심볼 구독중인 클라이언트에게만 전달
@@ -66,9 +77,9 @@ io.on("connection", (socket) => {
   console.log("Client Connect!", socket.id, socket);
   clientSubscribe[socket.id] = new Set();
 
-  // Track 1
+  // 초기 Header 데이터
   Object.values(latestDefaultTrades).forEach((trade) => {
-    io.emit("testUpdate", latestDefaultTrades);
+    io.emit("cryptoSymbolUpdate", latestDefaultTrades);
   });
 
   // Symbol 구독 요청

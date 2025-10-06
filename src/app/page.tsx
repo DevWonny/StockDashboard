@@ -78,7 +78,7 @@ export default function Home() {
       console.log("Socket Connect", socket.id, socket);
     });
 
-    socket.on("testUpdate", (test: any) => {
+    socket.on("cryptoSymbolUpdate", (test: any) => {
       console.log("🚀 ~ Home ~ test:", test);
     });
 
