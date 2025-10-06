@@ -20,9 +20,14 @@ const ws = new WebSocket(FINNHUB_URL);
 // Client별 구독 관리
 const clientSubscribe = {};
 
+const symbols = ["AAPL", "BINANCE:BTCUSDT", "OANDA:EUR_USD"];
+
 // Finnhub Connect
 ws.on("open", () => {
   console.log("Connect to Finnhub WebSocket!");
+  symbols.forEach((symbol) => {
+    ws.send(JSON.stringify({ type: "subscribe", symbol }));
+  });
 });
 
 // Finnhub -> Data 수신 -> 가공 -> Client

@@ -78,6 +78,10 @@ export default function Home() {
       console.log("Socket Connect", socket.id, socket);
     });
 
+    socket.on("testUpdate", (test: any) => {
+      console.log("🚀 ~ Home ~ test:", test);
+    });
+
     socket.on("stockUpdate", (trade: any) => {
       setData((prev: any) => [trade, ...prev].slice(0, 50));
     });
