@@ -14,7 +14,6 @@ interface ChartProps {
 }
 
 export default function Chart({ data }: ChartProps) {
-  console.log("🚀 ~ Chart ~ data:", data);
   const chartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -45,6 +44,16 @@ export default function Chart({ data }: ChartProps) {
       chart.applyOptions({
         width: chartRef.current?.clientWidth,
         height: chartRef.current?.clientHeight,
+        // timeScale: {
+        //   timeVisible: true,
+        //   secondsVisible: true,
+        //   tickMarkFormatter: (time: any, tickMarkType: any, locale: any) => {
+        //     const date = new Date(time * 1000); // 초 단위 timestamp
+        //     return `${
+        //       date.getMonth() + 1
+        //     }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
+        //   },
+        // },
       });
     };
 

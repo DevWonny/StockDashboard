@@ -53,7 +53,8 @@ ws.on("message", (msg) => {
       const trade = {
         symbol: d.s,
         price: d.p,
-        timestamp: dayjs(d.t).format("YYYY-MM-DD HH:mm:ss"),
+        // timestamp: dayjs(d.t).format("YYYY-MM-DD HH:mm:ss"),
+        timestamp: d.t,
         volume: d.v,
       };
 

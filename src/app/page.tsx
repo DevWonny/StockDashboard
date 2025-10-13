@@ -35,7 +35,7 @@ export default function Home() {
   // * Header 가상화폐 데이터
   const [cryptoData, setCryptoData] = useState<any>();
   // * Test Data
-  const [test, setTest] = useState<ChartData[]>([]);
+  const [test, setTest] = useState(new Map());
 
   // * Test
   const initialData: ChartData[] = [
@@ -100,18 +100,18 @@ export default function Home() {
     console.log("🚀 ~ Home ~ data:", data);
   }, [data]);
 
+  // * Test 진행중
   useEffect(() => {
     const item = cryptoData ? cryptoData["BINANCE:BTCUSDT"] : null;
     if (item) {
-      setTest(
-        (prev: any) =>
-          [...prev, { time: item.timestamp, value: item.price }].filter(
-            (item, index, self) =>
-              index === self.findIndex((el) => el.timestamp === item.timestamp)
-          )
-        // .sort((a, b) => a.timestamp - b.timestamp)
-        // .slice(-50)
-      );
+      setTest((prev) => {
+        const newMap = new Map(prev);
+        newMap.set(item.timestamp, {
+          time: item.timestamp,
+          value: item.price,
+        });
+        return newMap;
+      });
     }
   }, [cryptoData]);
 
@@ -181,7 +181,11 @@ export default function Home() {
       </Swiper>
 
       <div className="chart-wrap  flex justify-between h-screen">
-        <div className="chart-container ">{/* <Chart data={test} /> */}</div>
+        <div className="chart-container ">
+          <Chart
+            data={Array.from(test.values()).sort((a, b) => a.time - b.time)}
+          />
+        </div>
 
         <div className="stock-container flex flex-col">
           {symbolList.length > 0 ? (
