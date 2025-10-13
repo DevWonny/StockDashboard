@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { io, Socket } from "socket.io-client";
 import axios from "axios";
 import { Swiper, SwiperSlide } from "swiper/react";
+import dayjs from "dayjs";
 // component
 import HeaderItem from "@/components/HeaderItem";
 import Chart from "@/components/Chart";
@@ -32,7 +33,9 @@ export default function Home() {
   const [quoteInfo, setQuoteInfo] = useState<Quote | null>(null);
   const [isAllInfo, setIsAllInfo] = useState(false);
   // * Header 가상화폐 데이터
-  const [cryptoData, setCryptoData] = useState();
+  const [cryptoData, setCryptoData] = useState<any>();
+  // * Test Data
+  const [test, setTest] = useState<ChartData[]>([]);
 
   // * Test
   const initialData: ChartData[] = [
@@ -98,6 +101,25 @@ export default function Home() {
   }, [data]);
 
   useEffect(() => {
+    const item = cryptoData ? cryptoData["BINANCE:BTCUSDT"] : null;
+    if (item) {
+      setTest(
+        (prev: any) =>
+          [...prev, { time: item.timestamp, value: item.price }].filter(
+            (item, index, self) =>
+              index === self.findIndex((el) => el.timestamp === item.timestamp)
+          )
+        // .sort((a, b) => a.timestamp - b.timestamp)
+        // .slice(-50)
+      );
+    }
+  }, [cryptoData]);
+
+  useEffect(() => {
+    console.log("🚀 ~ Home ~ test:", test);
+  }, [test]);
+
+  useEffect(() => {
     if (symbolList.length > 0) {
       onSetSymbol(symbolList[0].symbol);
     }
@@ -159,9 +181,7 @@ export default function Home() {
       </Swiper>
 
       <div className="chart-wrap  flex justify-between h-screen">
-        <div className="chart-container ">
-          <Chart data={initialData} />
-        </div>
+        <div className="chart-container ">{/* <Chart data={test} /> */}</div>
 
         <div className="stock-container flex flex-col">
           {symbolList.length > 0 ? (
