@@ -17,7 +17,7 @@ export default function HeaderItem({ item, cryptoData }: HeaderItemProps) {
       </div>
 
       <div className="bot-container text-center text-2xl">
-        <span>{cryptoData.price}</span>
+        <span>{cryptoData && cryptoData.price}</span>
         <span className="text-xs">USDT</span>
       </div>
     </div>
