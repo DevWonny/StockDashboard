@@ -1,11 +1,12 @@
 "use client";
 import { AreaSeries, createChart, ColorType } from "lightweight-charts";
 import { useRef, useEffect } from "react";
+import dayjs from "dayjs";
 
 import { LineData } from "lightweight-charts";
 
 interface ChartData {
-  time: string;
+  time: any;
   value: number;
 }
 
@@ -36,6 +37,14 @@ export default function Chart({ data }: ChartProps) {
       },
       width: chartRef.current.clientWidth,
       height: chartRef.current.clientHeight - 100,
+      timeScale: {
+        timeVisible: true,
+        secondsVisible: false,
+        tickMarkFormatter: (time: any, tickMarkType: any, locale: any) => {
+          const formatTime = dayjs(time).format("MM/DD HH:mm:ss");
+          return formatTime;
+        },
+      },
     });
 
     chart.timeScale().fitContent();
@@ -44,16 +53,6 @@ export default function Chart({ data }: ChartProps) {
       chart.applyOptions({
         width: chartRef.current?.clientWidth,
         height: chartRef.current?.clientHeight,
-        // timeScale: {
-        //   timeVisible: true,
-        //   secondsVisible: true,
-        //   tickMarkFormatter: (time: any, tickMarkType: any, locale: any) => {
-        //     const date = new Date(time * 1000); // 초 단위 timestamp
-        //     return `${
-        //       date.getMonth() + 1
-        //     }-${date.getDate()} ${date.getHours()}:${date.getMinutes()}`;
-        //   },
-        // },
       });
     };
 

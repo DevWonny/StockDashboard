@@ -106,6 +106,7 @@ export default function Home() {
     if (item) {
       setTest((prev) => {
         const newMap = new Map(prev);
+        // const newTime = new Date(item.timestamp * 1000);
         newMap.set(item.timestamp, {
           time: item.timestamp,
           value: item.price,
@@ -115,9 +116,9 @@ export default function Home() {
     }
   }, [cryptoData]);
 
-  useEffect(() => {
-    console.log("🚀 ~ Home ~ test:", test);
-  }, [test]);
+  // useEffect(() => {
+  //   console.log("🚀 ~ Home ~ test:", test);
+  // }, [test]);
 
   useEffect(() => {
     if (symbolList.length > 0) {
