@@ -40,14 +40,23 @@ export default function Chart({ data }: ChartProps) {
       timeScale: {
         timeVisible: true,
         secondsVisible: false,
-        tickMarkFormatter: (time: any, tickMarkType: any, locale: any) => {
-          const formatTime = dayjs(time).format("MM/DD HH:mm:ss");
-          return formatTime;
-        },
       },
     });
 
     chart.timeScale().fitContent();
+
+    // chart Marker Option
+    let lastDate: string | null = null;
+    chart.applyOptions({
+      timeScale: {
+        tickMarkFormatter: (time: any) => {
+          const dateStr = dayjs(time).format("YYYY-MM-DD");
+          if (dateStr === lastDate) return "";
+          lastDate = dateStr;
+          return dateStr;
+        },
+      },
+    });
 
     const handleResize = () => {
       chart.applyOptions({
