@@ -3,8 +3,6 @@ import { AreaSeries, createChart, ColorType } from "lightweight-charts";
 import { useRef, useEffect } from "react";
 import dayjs from "dayjs";
 
-import { LineData } from "lightweight-charts";
-
 interface ChartData {
   time: any;
   value: number;
@@ -53,9 +51,6 @@ export default function Chart({ data }: ChartProps) {
     // chart Marker Option
     let lastDate: string | null = null;
     chart.applyOptions({
-      // localization: {
-      //   dateFormat: "YYYY-MM-DD HH:mm:ss",
-      // },
       timeScale: {
         tickMarkFormatter: (time: any) => {
           const dateStr = dayjs(time).format("YYYY-MM-DD");
@@ -65,31 +60,6 @@ export default function Chart({ data }: ChartProps) {
         },
       },
     });
-
-    // const tooltip = document.createElement("div");
-    // tooltip.style.background = "red";
-    // chartRef.current.appendChild(tooltip);
-
-    // chart.subscribeCrosshairMove((params) => {
-    //   // console.log("🚀 ~ Chart ~ params:", params);
-    //   // if (!param.time || !param.seriesData.size) return;
-    //   // const utcDate = new Date(param.time * 1000);
-    //   // const kstDate = new Date(utcDate.getTime() + 9 * 60 * 60 * 1000);
-    //   // const formatted = dayjs(kstDate).format("YYYY-MM-DD HH:mm:ss");
-    //   if (!params.time) {
-    //     tooltip.style.display = "none";
-    //     return;
-    //   }
-    //   tooltip.style.display = "block";
-
-    //   const formatTime = dayjs(params.time as number).format(
-    //     "YYYY-MM-DD HH:mm:ss"
-    //   );
-    //   console.log("🚀 ~ Chart ~ formatTime:", formatTime);
-
-    //   // const value = param.seriesData.get(series)?.value;
-    //   tooltip.innerHTML = `<b>${formatTime}</b>`;
-    // });
 
     const handleResize = () => {
       chart.applyOptions({

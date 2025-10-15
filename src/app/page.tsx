@@ -34,22 +34,8 @@ export default function Home() {
   const [isAllInfo, setIsAllInfo] = useState(false);
   // * Header 가상화폐 데이터
   const [cryptoData, setCryptoData] = useState<any>();
-  // * Test Data
+  // * Test Data -> 추후 제거 예정
   const [test, setTest] = useState(new Map());
-
-  // * Test
-  const initialData: ChartData[] = [
-    { time: "2025-08-25", value: 32.51 },
-    { time: "2025-08-26", value: 31.11 },
-    { time: "2025-08-27", value: 27.02 },
-    { time: "2025-08-28", value: 27.32 },
-    { time: "2025-08-29", value: 25.17 },
-    { time: "2025-08-30", value: 28.89 },
-    { time: "2025-08-31", value: 25.46 },
-    { time: "2025-09-01", value: 23.92 },
-    { time: "2025-09-02", value: 22.68 },
-    { time: "2025-09-03", value: 22.67 },
-  ];
 
   useEffect(() => {
     const symbols = async () => {
@@ -106,7 +92,6 @@ export default function Home() {
     if (item) {
       setTest((prev) => {
         const newMap = new Map(prev);
-        // const newTime = new Date(item.timestamp * 1000);
         newMap.set(item.timestamp, {
           time: item.timestamp,
           value: item.price,
@@ -115,10 +100,6 @@ export default function Home() {
       });
     }
   }, [cryptoData]);
-
-  // useEffect(() => {
-  //   console.log("🚀 ~ Home ~ test:", test);
-  // }, [test]);
 
   useEffect(() => {
     if (symbolList.length > 0) {
@@ -166,49 +147,55 @@ export default function Home() {
   };
 
   return (
-    <div className="main-wrap">
-      <Swiper className="header-container w-full" slidesPerView={8}>
-        {cryptoList.length > 0 &&
-          cryptoList.map((item: CryptoSymbol, index: number) => {
-            const data = cryptoData ? cryptoData[item.symbol] : null;
-            return (
-              <SwiperSlide
-                key={`header-swiper-slide-index-${item.symbol}-${index}`}
-              >
-                <HeaderItem item={item} cryptoData={data} />
-              </SwiperSlide>
-            );
-          })}
-      </Swiper>
+    <>
+      {cryptoList.length > 0 && symbolList.length > 0 && isAllInfo ? (
+        <div className="main-wrap">
+          <Swiper className="header-container w-full" slidesPerView={8}>
+            {cryptoList.length > 0 &&
+              cryptoList.map((item: CryptoSymbol, index: number) => {
+                const data = cryptoData ? cryptoData[item.symbol] : null;
+                return (
+                  <SwiperSlide
+                    key={`header-swiper-slide-index-${item.symbol}-${index}`}
+                  >
+                    <HeaderItem item={item} cryptoData={data} />
+                  </SwiperSlide>
+                );
+              })}
+          </Swiper>
 
-      <div className="chart-wrap  flex justify-between h-screen">
-        <div className="chart-container ">
-          <Chart
-            data={Array.from(test.values()).sort((a, b) => a.time - b.time)}
-          />
-        </div>
-
-        <div className="stock-container flex flex-col">
-          {symbolList.length > 0 ? (
-            <div className="stock-list-container flex flex-col w-full">
-              <StockDropdown data={symbolList} onSetSymbol={onSetSymbol} />
+          <div className="chart-wrap  flex justify-between h-screen">
+            <div className="chart-container ">
+              <Chart
+                data={Array.from(test.values()).sort((a, b) => a.time - b.time)}
+              />
             </div>
-          ) : (
-            <div>Loading...</div>
-          )}
 
-          {isAllInfo ? (
-            <StockDetail
-              company={companyInfo!}
-              financial={financialInfo!}
-              quote={quoteInfo!}
-              surprises={surprisesInfo!}
-            />
-          ) : (
-            <div>Loading...</div>
-          )}
+            <div className="stock-container flex flex-col">
+              {symbolList.length > 0 ? (
+                <div className="stock-list-container flex flex-col w-full">
+                  <StockDropdown data={symbolList} onSetSymbol={onSetSymbol} />
+                </div>
+              ) : (
+                <div>Loading...</div>
+              )}
+
+              {isAllInfo ? (
+                <StockDetail
+                  company={companyInfo!}
+                  financial={financialInfo!}
+                  quote={quoteInfo!}
+                  surprises={surprisesInfo!}
+                />
+              ) : (
+                <div>Loading...</div>
+              )}
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className="loading">... Loading</div>
+      )}
+    </>
   );
 }
