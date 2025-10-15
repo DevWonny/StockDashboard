@@ -194,7 +194,9 @@ export default function Home() {
           </div>
         </div>
       ) : (
-        <div className="loading">... Loading</div>
+        <div className="loading w-screen h-screen flex items-center justify-center text-9xl">
+          ... Loading
+        </div>
       )}
     </>
   );
