@@ -35,7 +35,7 @@ export default function Home() {
   // * Header 가상화폐 데이터
   const [cryptoData, setCryptoData] = useState<any>();
   // * Test Data -> 추후 제거 예정
-  const [test, setTest] = useState(new Map());
+  const [test, setTest] = useState<any>(null);
 
   useEffect(() => {
     const symbols = async () => {
@@ -140,8 +140,35 @@ export default function Home() {
       });
   };
 
+  const onSetCrypto = async (symbol: string) => {
+    // * 기존 심볼 구독 해지
+    if (currentSymbol) {
+      socketRef.current?.emit("unsubscribe", currentSymbol);
+      setData([]);
+    }
+
+    console.log(test);
+
+    if (symbol) {
+      const item = cryptoData[symbol];
+      if (item) {
+        setTest((prev: any) => {
+          const newMap = new Map(prev);
+          newMap.set(item.timestamp, {
+            time: item.timestamp,
+            value: item.price,
+          });
+          return newMap;
+        });
+      }
+    }
+  };
+
+  useEffect(() => {
+    console.log("🚀 ~ Home ~ test:", test);
+  }, [test]);
+
   return (
-    // cryptoList.length > 0 && symbolList.length > 0 && isAllInfo
     <>
       {cryptoList.length > 0 && symbolList.length > 0 ? (
         <div className="main-wrap">
@@ -153,19 +180,25 @@ export default function Home() {
                   <SwiperSlide
                     key={`header-swiper-slide-index-${item.symbol}-${index}`}
                   >
-                    <HeaderItem item={item} cryptoData={data} />
+                    <HeaderItem
+                      item={item}
+                      cryptoData={data}
+                      onSetCrypto={onSetCrypto}
+                    />
                   </SwiperSlide>
                 );
               })}
           </Swiper>
 
           <div className="chart-wrap  flex justify-between h-screen">
-            {data.length > 0 ? (
+            {data.length > 0 || test ? (
               <div className="chart-container w-[1040px]">
                 <Chart
-                  data={Array.from(test.values()).sort(
-                    (a, b) => a.time - b.time
-                  )}
+                  data={
+                    Array.from(test.values()).sort(
+                      (a: any, b: any) => a.time - b.time
+                    ) as any
+                  }
                 />
               </div>
             ) : (

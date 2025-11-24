@@ -15,15 +15,15 @@ export default function HeaderItem({
   cryptoData,
   onSetCrypto,
 }: HeaderItemProps) {
-  const onItemClick = (item: CryptoSymbol) => {
-    console.log("🚀 ~ onItemClick ~ item:", item);
+  const onItemClick = (crypto: string) => {
+    onSetCrypto(crypto);
   };
 
   return (
     <div
       className="header-item-container py-[5px] px-[20px] cursor-pointer"
       onClick={() => {
-        onItemClick(item);
+        onItemClick(item.symbol);
       }}
     >
       <div className="top-container flex justify-between text-sm">
