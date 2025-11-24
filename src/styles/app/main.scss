@@ -9,8 +9,10 @@ div.main-wrap {
   }
 
   div.chart-wrap {
-    div.chart-container {
-      width: 1040px;
+    div.stock-container {
+      height: 100%;
+      width: calc(100% - 1040px);
+      border-left: 1px solid #a1a1a1;
     }
   }
 }

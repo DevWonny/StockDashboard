@@ -20,7 +20,6 @@ interface StockProps {
   onSetSymbol: (symbol: string) => void;
 }
 export default function StockDropdown({ data, onSetSymbol }: StockProps) {
-  // ! 이름만 사용할수 있음... 데이터 내용 부실 -> 드롭다운 형태로 변경
   const [dataDescription, setDataDescription] = useState<string>("");
 
   const onItemClick = (item: Symbol) => {
@@ -30,7 +29,7 @@ export default function StockDropdown({ data, onSetSymbol }: StockProps) {
 
   useEffect(() => {
     if (data.length > 0) {
-      setDataDescription(data[0].description);
+      setDataDescription("심볼을 선택하세요.");
     } else {
       setDataDescription("");
     }
