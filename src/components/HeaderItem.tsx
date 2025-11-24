@@ -7,11 +7,25 @@ import "@/styles/components/HeaderItem.scss";
 interface HeaderItemProps {
   item: CryptoSymbol;
   cryptoData?: any;
+  onSetCrypto: (crypto: any) => void;
 }
 
-export default function HeaderItem({ item, cryptoData }: HeaderItemProps) {
+export default function HeaderItem({
+  item,
+  cryptoData,
+  onSetCrypto,
+}: HeaderItemProps) {
+  const onItemClick = (item: CryptoSymbol) => {
+    console.log("🚀 ~ onItemClick ~ item:", item);
+  };
+
   return (
-    <div className="header-item-container py-[5px] px-[20px]">
+    <div
+      className="header-item-container py-[5px] px-[20px] cursor-pointer"
+      onClick={() => {
+        onItemClick(item);
+      }}
+    >
       <div className="top-container flex justify-between text-sm">
         <h1>{item && item.displaySymbol}</h1>
       </div>

@@ -101,12 +101,6 @@ export default function Home() {
   //   }
   // }, [cryptoData]);
 
-  // useEffect(() => {
-  //   if (symbolList.length > 0) {
-  //     onSetSymbol(symbolList[0].symbol);
-  //   }
-  // }, [symbolList]);
-
   useEffect(() => {
     if (companyInfo && financialInfo && quoteInfo && surprisesInfo) {
       setIsAllInfo(true);
