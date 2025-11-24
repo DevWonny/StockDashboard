@@ -148,61 +148,67 @@ export default function Home() {
 
   return (
     // cryptoList.length > 0 && symbolList.length > 0 && isAllInfo
-    <div className="main-wrap">
-      <Swiper className="header-container w-full" slidesPerView={8}>
-        {cryptoList.length > 0 &&
-          cryptoList.map((item: CryptoSymbol, index: number) => {
-            const data = cryptoData ? cryptoData[item.symbol] : null;
-            return (
-              <SwiperSlide
-                key={`header-swiper-slide-index-${item.symbol}-${index}`}
-              >
-                <HeaderItem item={item} cryptoData={data} />
-              </SwiperSlide>
-            );
-          })}
-      </Swiper>
+    <>
+      {cryptoList.length > 0 && symbolList.length > 0 ? (
+        <div className="main-wrap">
+          <Swiper className="header-container w-full" slidesPerView={8}>
+            {cryptoList.length > 0 &&
+              cryptoList.map((item: CryptoSymbol, index: number) => {
+                const data = cryptoData ? cryptoData[item.symbol] : null;
+                return (
+                  <SwiperSlide
+                    key={`header-swiper-slide-index-${item.symbol}-${index}`}
+                  >
+                    <HeaderItem item={item} cryptoData={data} />
+                  </SwiperSlide>
+                );
+              })}
+          </Swiper>
 
-      <div className="chart-wrap  flex justify-between h-screen">
-        {data.length > 0 ? (
-          <div className="chart-container w-[1040px]">
-            <Chart
-              data={Array.from(test.values()).sort((a, b) => a.time - b.time)}
-            />
-          </div>
-        ) : (
-          <div className="chart-text flex justify-center items-center w-[1040px]">
-            심볼을 선택해 주세요.
-          </div>
-        )}
+          <div className="chart-wrap  flex justify-between h-screen">
+            {data.length > 0 ? (
+              <div className="chart-container w-[1040px]">
+                <Chart
+                  data={Array.from(test.values()).sort(
+                    (a, b) => a.time - b.time
+                  )}
+                />
+              </div>
+            ) : (
+              <div className="chart-text flex justify-center items-center w-[1040px]">
+                심볼을 선택하세요.
+              </div>
+            )}
 
-        <div className="stock-container flex flex-col">
-          {symbolList.length > 0 ? (
-            <div className="stock-list-container flex flex-col w-full">
-              <StockDropdown data={symbolList} onSetSymbol={onSetSymbol} />
+            <div className="stock-container flex flex-col">
+              {symbolList.length > 0 ? (
+                <div className="stock-list-container flex flex-col w-full">
+                  <StockDropdown data={symbolList} onSetSymbol={onSetSymbol} />
+                </div>
+              ) : (
+                <div>Loading...</div>
+              )}
+
+              {isAllInfo ? (
+                <StockDetail
+                  company={companyInfo!}
+                  financial={financialInfo!}
+                  quote={quoteInfo!}
+                  surprises={surprisesInfo!}
+                />
+              ) : (
+                <div className="stock-no-data flex items-center justify-center h-full">
+                  No Data
+                </div>
+              )}
             </div>
-          ) : (
-            <div>Loading...</div>
-          )}
-
-          {isAllInfo ? (
-            <StockDetail
-              company={companyInfo!}
-              financial={financialInfo!}
-              quote={quoteInfo!}
-              surprises={surprisesInfo!}
-            />
-          ) : (
-            <div>No Data</div>
-          )}
+          </div>
         </div>
-      </div>
-    </div>
+      ) : (
+        <div className="loading w-screen h-screen flex items-center justify-center text-9xl">
+          ... Loading
+        </div>
+      )}
+    </>
   );
-}
-
-{
-  /* <div className="loading w-screen h-screen flex items-center justify-center text-9xl">
-  ... Loading
-</div>; */
 }
