@@ -24,7 +24,7 @@ interface ChartData {
 export default function Home() {
   const socketRef = useRef<Socket | null>(null);
   const [currentSymbol, setCurrentSymbol] = useState<string | null>(null);
-  const [data, setData] = useState<any>([]);
+  const [data, setData] = useState<any>(null);
   const [symbolList, setSymbolList] = useState<Symbol[]>([]);
   const [cryptoList, setCryptoList] = useState<CryptoSymbol[]>([]);
   const [companyInfo, setCompanyInfo] = useState<Company | null>(null);
@@ -34,8 +34,6 @@ export default function Home() {
   const [isAllInfo, setIsAllInfo] = useState(false);
   // * Header 가상화폐 데이터
   const [cryptoData, setCryptoData] = useState<any>();
-  // * Test Data -> 추후 제거 예정
-  const [test, setTest] = useState<any>(null);
 
   useEffect(() => {
     const symbols = async () => {
@@ -74,32 +72,20 @@ export default function Home() {
     });
 
     socket.on("stockUpdate", (trade: any) => {
-      setData((prev: any) => [trade, ...prev].slice(0, 50));
+      setData((prev: any) => {
+        const newMap = new Map(prev);
+        newMap.set(trade.timestamp, {
+          time: trade.timestamp,
+          value: trade.price,
+        });
+        return newMap;
+      });
     });
 
     return () => {
       socket.disconnect();
     };
   }, []);
-
-  useEffect(() => {
-    console.log("🚀 ~ Home ~ data:", data);
-  }, [data]);
-
-  // * Test 진행중
-  // useEffect(() => {
-  //   const item = cryptoData ? cryptoData["BINANCE:BTCUSDT"] : null;
-  //   if (item) {
-  //     setTest((prev) => {
-  //       const newMap = new Map(prev);
-  //       newMap.set(item.timestamp, {
-  //         time: item.timestamp,
-  //         value: item.price,
-  //       });
-  //       return newMap;
-  //     });
-  //   }
-  // }, [cryptoData]);
 
   useEffect(() => {
     if (companyInfo && financialInfo && quoteInfo && surprisesInfo) {
@@ -113,7 +99,7 @@ export default function Home() {
     // * 기존 심볼 구독 해지
     if (currentSymbol) {
       socketRef.current?.emit("unsubscribe", currentSymbol);
-      setData([]);
+      setData(null);
     }
 
     // * 새로운 심볼 구독
@@ -142,31 +128,15 @@ export default function Home() {
 
   const onSetCrypto = async (symbol: string) => {
     // * 기존 심볼 구독 해지
-    if (currentSymbol) {
+    if (currentSymbol !== symbol) {
+      console.log(1);
       socketRef.current?.emit("unsubscribe", currentSymbol);
-      setData([]);
+      setData(null);
     }
 
-    console.log(test);
-
-    if (symbol) {
-      const item = cryptoData[symbol];
-      if (item) {
-        setTest((prev: any) => {
-          const newMap = new Map(prev);
-          newMap.set(item.timestamp, {
-            time: item.timestamp,
-            value: item.price,
-          });
-          return newMap;
-        });
-      }
-    }
+    socketRef.current?.emit("subscribe", symbol);
+    setCurrentSymbol(symbol);
   };
-
-  useEffect(() => {
-    console.log("🚀 ~ Home ~ test:", test);
-  }, [test]);
 
   return (
     <>
@@ -191,15 +161,15 @@ export default function Home() {
           </Swiper>
 
           <div className="chart-wrap  flex justify-between h-screen">
-            {data.length > 0 || test ? (
+            {data ? (
               <div className="chart-container w-[1040px]">
                 <Chart
                   data={
-                    Array.from(test.values()).sort(
+                    Array.from(data.values()).sort(
                       (a: any, b: any) => a.time - b.time
                     ) as any
                   }
-                />
+                ></Chart>
               </div>
             ) : (
               <div className="chart-text flex justify-center items-center w-[1040px]">

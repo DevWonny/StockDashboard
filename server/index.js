@@ -53,9 +53,11 @@ ws.on("message", (msg) => {
       const trade = {
         symbol: d.s,
         price: d.p,
-        // timestamp: dayjs(d.t).format("YYYY-MM-DD HH:mm:ss"),
+        // // timestamp: dayjs(d.t).format("YYYY-MM-DD HH:mm:ss"),
         timestamp: d.t,
         volume: d.v,
+        // value: d.p,
+        // time: d.t,
       };
 
       if (cryptoSymbols.includes(trade.symbol)) {
@@ -66,6 +68,11 @@ ws.on("message", (msg) => {
       // 심볼 구독중인 클라이언트에게만 전달
       for (const [clientId, symbols] of Object.entries(clientSubscribe)) {
         if (symbols.has(trade.symbol)) {
+          // const test = {
+          //   symbol: trade.symbol,
+          //   value: trade.price,
+          //   time: trade.timestamp,
+          // };
           io.to(clientId).emit("stockUpdate", trade);
         }
       }
