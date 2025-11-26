@@ -1,10 +1,10 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { financial } from "@/service/Stock";
 
 
-export async function GET(req: NextRequest, { params }: { params: Record<string, string> }) {
+export async function GET(req: Request, { params }: { params: { symbol: string } }) {
   try {
-    const { symbol } = await params;
+    const { symbol } = params;
     const data = await financial(symbol);
     return NextResponse.json(data);
   } catch (err) {

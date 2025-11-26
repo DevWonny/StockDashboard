@@ -1,9 +1,9 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 import { quote } from "@/service/Stock";
 
-export async function GET(req: NextRequest, { params }: { params: Record<string, string> }) {
+export async function GET(req: Request, { params }: { params: { symbol: string } }) {
   try {
-    const { symbol } = await params;
+    const { symbol } = params;
     const data = await quote(symbol);
     return NextResponse.json(data);
   } catch (err) {
