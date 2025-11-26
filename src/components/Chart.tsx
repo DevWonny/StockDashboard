@@ -13,7 +13,6 @@ interface ChartProps {
 }
 
 export default function Chart({ data }: ChartProps) {
-  console.log("🚀 ~ Chart ~ data:", data);
   const chartRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

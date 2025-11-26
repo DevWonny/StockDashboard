@@ -129,7 +129,6 @@ export default function Home() {
   const onSetCrypto = async (symbol: string) => {
     // * 기존 심볼 구독 해지
     if (currentSymbol !== symbol) {
-      console.log(1);
       socketRef.current?.emit("unsubscribe", currentSymbol);
       setData(null);
     }

@@ -1,9 +1,7 @@
 import { NextResponse } from "next/server";
 import { quote } from "@/service/Stock";
-// type
-import type { StockParams } from "@/types/stockSymbol";
 
-export async function GET(req: Request, context: StockParams) {
+export async function GET(req: Request, context: { params: { symbol: string } }) {
   try {
     const { symbol } = context.params;
     const data = await quote(symbol);
