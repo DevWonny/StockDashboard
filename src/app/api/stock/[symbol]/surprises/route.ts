@@ -1,10 +1,9 @@
 import { NextResponse, NextRequest } from "next/server";
 import { surprises } from "@/service/Stock";
 
-export async function GET(req: NextRequest, context: { params: Record<string, string> }) {
+export async function GET(req: NextRequest, { params }: { params: Record<string, string> }) {
   try {
-    const params = await context.params;
-    const { symbol } = params;
+    const { symbol } = await params;
     const data = await surprises(symbol);
     return NextResponse.json(data);
   } catch (err) {
