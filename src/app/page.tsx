@@ -106,10 +106,10 @@ export default function Home() {
     socketRef.current?.emit("subscribe", symbol);
     setCurrentSymbol(symbol);
     const promises = [
-      await axios.get(`/api/stock/${symbol}/company`),
-      await axios.get(`/api/stock/${symbol}/financial`),
-      await axios.get(`/api/stock/${symbol}/surprises`),
-      await axios.get(`/api/stock/${symbol}/quote`),
+      await axios.get(`/api/stock/company?symbol=${symbol}`),
+      await axios.get(`/api/stock/financial?symbol=${symbol}`),
+      await axios.get(`/api/stock/surprises?symbol=${symbol}`),
+      await axios.get(`/api/stock/quote?symbol=${symbol}`),
     ];
 
     Promise.all(promises)

@@ -1,9 +1,13 @@
 import { NextResponse } from "next/server";
 import { quote } from "@/service/Stock";
 
-export async function GET(req: Request, { params }: { params: { symbol: string } }) {
+export async function GET(req: Request) {
   try {
-    const { symbol } = params;
+    const url = new URL(req.url);
+    const symbol = url.searchParams.get('symbol');
+    if (!symbol) {
+      return NextResponse.json({ error: 'Symbol is Required!' }, { status: 400 });
+    }
     const data = await quote(symbol);
     return NextResponse.json(data);
   } catch (err) {
