@@ -1,3 +1,3 @@
-export default interface StockParams {
+export interface StockParams {
   params: { symbol: string }
 }

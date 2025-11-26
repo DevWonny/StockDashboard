@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server";
 import { financial } from "@/service/Stock";
 // type
-import StockParams from "@/types/stockSymbol";
+import type { StockParams } from "@/types/stockSymbol";
 
-export async function GET(req: Request, { params }: StockParams) {
+export async function GET(req: Request, context: StockParams) {
   try {
-    const { symbol } = await params;
+    const { symbol } = context.params;
     const data = await financial(symbol);
     return NextResponse.json(data);
   } catch (err) {
