@@ -59,7 +59,8 @@ export default function Home() {
     cryptos();
 
     // * Socket
-    socketRef.current = io("http://localhost:4000");
+    // socketRef.current = io("http://localhost:4000");
+    socketRef.current = io("stockdashboard-production-11f6.up.railway.app");
     const socket = socketRef.current;
 
     // * 소켓이 연결되면 실행. 연결 성공 로그 등 추가 로직(예: 인증 토큰 전송)에 쓸 수 있습니다.
