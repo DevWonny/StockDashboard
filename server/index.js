@@ -1,10 +1,10 @@
-// import "dotenv/config";
+import dotenv from "dotenv";
 import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 import WebSocket from "ws";
-import dayjs from "dayjs";
 
+dotenv.config();
 const app = express();
 const server = createServer(app);
 const io = new Server(server, {
@@ -14,6 +14,7 @@ const io = new Server(server, {
   },
 });
 
+// const FINNHUB_URL = `wss://ws.finnhub.io?token=${process.env.FINNHUB_TOKEN}`;
 const FINNHUB_URL = `wss://ws.finnhub.io?token=d2nqnr1r01qsrqkpn0p0d2nqnr1r01qsrqkpn0pg`;
 const ws = new WebSocket(FINNHUB_URL);
 
@@ -117,6 +118,7 @@ app.get("/", (req, res) => {
 });
 
 // Server 실행
-server.listen(4000, () => {
-  console.log("Backend listening on http://localhost:4000");
+const PORT = process.env.PORT || 4000;
+server.listen(PORT, () => {
+  console.log(`Backend listening on port ${PORT}`);
 });
