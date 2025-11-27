@@ -61,7 +61,11 @@ export default function Home() {
     // * Socket
     // socketRef.current = io("http://localhost:4000");
     socketRef.current = io(
-      "https://stockdashboard-production-11f6.up.railway.app"
+      "https://stockdashboard-production-11f6.up.railway.app",
+      {
+        path: "/socket.io/",
+        transports: ["websocket", "polling"],
+      }
     );
     const socket = socketRef.current;
 

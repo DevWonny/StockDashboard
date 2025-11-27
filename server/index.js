@@ -11,7 +11,11 @@ const io = new Server(server, {
   cors: {
     // ! 개발단계에서는 전체 허용. 실제 배포시에는 특정 도메인만 넣어야 함!
     origin: "*",
+    methods: ["GET", "POST"],
+    allowedHeaders: ["*"],
+    credentials: true,
   },
+  transports: ["websocket", "polling"],
 });
 
 // const FINNHUB_URL = `wss://ws.finnhub.io?token=${process.env.FINNHUB_TOKEN}`;
@@ -118,7 +122,7 @@ app.get("/", (req, res) => {
 });
 
 // Server 실행
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
   console.log(`Backend listening on port ${PORT}`);
 });
