@@ -1,5 +1,9 @@
 # Stock DashBoard
 
+## 배포 URL
+
+- https://stock-dashboard-ten-rho.vercel.app/
+
 ### Web Socket을 활용한 주식 대시보드
 
 - Web Socket을 활용하기 위한 프로젝트
