@@ -118,7 +118,7 @@ app.get("/", (req, res) => {
 });
 
 // Server 실행
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => {
   console.log(`Backend listening on port ${PORT}`);
 });
