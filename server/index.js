@@ -12,9 +12,9 @@ const io = new Server(server, {
     // ! 개발단계에서는 전체 허용. 실제 배포시에는 특정 도메인만 넣어야 함!
     origin: "*",
     methods: ["GET", "POST"],
+    allowedHeaders: ["*"],
     credentials: true,
   },
-  path: "/socket.io/",
   transports: ["websocket", "polling"],
 });
 
