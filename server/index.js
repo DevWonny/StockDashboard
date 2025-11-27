@@ -15,6 +15,7 @@ const io = new Server(server, {
     allowedHeaders: ["*"],
     credentials: true,
   },
+  path: "/socket.io/",
   transports: ["websocket", "polling"],
 });
 
